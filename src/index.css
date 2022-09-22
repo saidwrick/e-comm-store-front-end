@@ -1,0 +1,111 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.inventory, .new-item{
+    padding: 25px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 5% 15% 8% 15% 20% 8% 16% 13%;
+    box-sizing: border-box;
+    min-width: 600px;
+}
+
+.inventory>.header{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.inventory .cell,
+.new-item .cell {
+    position: relative;
+    border: 1px solid lightgrey;
+    margin-top: -1px;
+    margin-left: -1px;
+    padding: 2px;
+}
+
+.inventory .id,
+.inventory .cat {
+    padding: 5px;
+    height: 100%;
+    word-break: break-all;
+    box-sizing: border-box;
+}
+.inventory input {
+    all: unset;
+    display: inline-block;
+    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 85%;
+}
+
+.inventory .hover,
+.new-item .hover {
+    position: absolute;
+    z-index: 1;
+    background: rgb(255, 255, 169);
+    padding: 5px;
+    border: 1px solid black;
+    white-space: pre-wrap;
+    max-width: 200px;
+    font-size: 14px;
+    left: 10px;
+    overflow-wrap: break-word;
+}
+
+.new-item .cell {
+    border: 1px solid grey;
+}
+
+.new-item input {
+    all:unset;
+    width: 85%;
+    height: 25px;
+    padding-left: 5px;
+    font-size: 14px;
+    text-overflow: ellipsis;
+}
+
+.category-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 1;
+    top: 35px;
+    left: 0;
+    border: 1px solid grey;
+    background-color: white;
+    box-shadow: 0px 1px 2px 0px rgb(61, 61, 61);
+    min-width: 200px;
+    width: 100%;
+    box-sizing: border-box;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 5px;
+    gap: 5px;
+}
+
+.option{
+    padding: 5px 10px;
+    box-sizing: border-box;
+    word-wrap:break-word;
+}
+
+.option:hover{
+    background-color: rgb(228, 228, 228);
+}
+
+.category-dropdown input{
+    min-height: 28px;
+    min-width: 100%;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    text-overflow: clip;    
+}
