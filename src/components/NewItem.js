@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
+import DescriptionMod from './DescriptionMod';
+import CategoryDropdown from './CategoryDropdown';
 
 function NewItem(props) {
 
     const [name, setName] = useState("");
-    const [price, setPrice] = useState();
-    const [photo, setPhoto] = useState();
-    const [desc, setDesc] = useState();
-    const [quant, setQuant] = useState();
-    const [catId, setCatId] = useState(1);
-    const [cat, setCat] = useState();
+    const [price, setPrice] = useState("");
+    const [photo, setPhoto] = useState("");
+    const [desc, setDesc] = useState("");
+    const [quant, setQuant] = useState("");
+    const [catId, setCatId] = useState("");
+    const [cat, setCat] = useState("");
     const [hover, setHover] = useState(null);
+    const [expandDesc, setExpandDesc] = useState(false);
 
     function refreshValues(){
         setName("");
@@ -20,9 +23,33 @@ function NewItem(props) {
         setCatId(1);
         setCat("");
     }
+    function descChange(text){
+        setDesc(text);
+    }
+
+    const [expandCategories, setExpandCategories] = useState(false);
+
+    function handleCategoriesClick(e){
+        e.stopPropagation();
+        // to close categories menu if click outside
+        if (!expandCategories){
+            function closeCategories (e) {
+                e.stopPropagation();
+                setExpandCategories(false);
+                document.removeEventListener("click", closeCategories);
+            }
+            document.addEventListener("click", closeCategories);
+        }
+        setExpandCategories(!expandCategories);
+    }
+
+    function categoryChange(id, name){
+        setCatId(id);
+        setCat(name);
+    }
 
     function mouseEnter(e){
-        if (e.target.value != ""){
+        if (e.target.value || e.target.innerText){
             setHover(e.target.className)
         }
     }
@@ -102,14 +129,15 @@ function NewItem(props) {
             </div>
             <div className="cell">
                 <input className="desc" 
-                    type="text"
-                    onChange={(e)=>setDesc(e.target.value)}
+                    onClick={e=>setExpandDesc(true)}
                     onMouseEnter={mouseEnter}
                     onMouseLeave={mouseLeave}
                     placeholder="Description"
-                    value={desc || ""}>
+                    value={desc}>
+                    
                 </input>
                 {hover == "desc" ? <div className="hover">{desc}</div> : null}
+                {expandDesc ? <DescriptionMod descChange={descChange} expandDesc={setExpandDesc} desc={desc}></DescriptionMod> : null}
             </div>
             <div className="cell">
                 <input className="quant" 
@@ -123,14 +151,14 @@ function NewItem(props) {
                 {hover == "quant" ? <div className="hover">{quant}</div> : null}
             </div>
             <div className="cell">    
-                <input className="cat" 
-                    type="text"
-                    onChange={(e)=>setCat(e.target.value)}
+                <input className="cat"
+                    onClick={handleCategoriesClick}
                     onMouseEnter={mouseEnter}
                     onMouseLeave={mouseLeave}
                     placeholder="Category"
-                    value={cat || ""}>
+                    value={cat}>
                 </input>
+                {expandCategories ? <CategoryDropdown categoryChange={categoryChange}></CategoryDropdown> : null}
                 {hover == "cat" ? <div className="hover">{cat}</div> : null}
             </div>
             <div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import CategoryDropdown from './CategoryDropdown.js'
+import DescriptionMod from './DescriptionMod.js'
 
 function Item(props) {
 
@@ -13,6 +14,7 @@ function Item(props) {
     const [catId, setCatId] = useState();
     const [cat, setCat] = useState();
     const [disabled, setDisabled] = useState(true);
+    const [expandDesc, setExpandDesc] = useState(false);
 
     function refreshValues(){
         setName(props.item.name);
@@ -50,7 +52,6 @@ function Item(props) {
     const [expandCategories, setExpandCategories] = useState(false);
 
     function handleCategoriesClick(e){
-        console.log(expandCategories)
         e.stopPropagation();
         // to close categories menu if click outside
         if (!expandCategories){
@@ -67,6 +68,11 @@ function Item(props) {
     function categoryChange(id, name){
         setCatId(id);
         setCat(name);
+        setDisabled(false);
+    }
+
+    function descChange(text){
+        setDesc(text);
         setDisabled(false);
     }
 
@@ -137,7 +143,7 @@ function Item(props) {
     const [hover, setHover] = useState();
 
     function mouseEnter(e){
-        if (e.target.value != ""){
+        if (e.target.value || e.target.innerText){
             setHover(e.target.className)
         }
     }
@@ -148,7 +154,7 @@ function Item(props) {
 
     useEffect(() => {
         refreshValues();
-    },[])
+    },[props])
 
     if (!props.item){
         return null
@@ -184,14 +190,14 @@ function Item(props) {
                 </input>
             </div>
             <div className="cell">
-                <input className="desc" 
-                    type="text"
-                    onChange={handleChange}
+                <div className="desc" 
+                    onClick={e=>setExpandDesc(true)}
                     onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-                    value={desc || ""}>
-                </input>
+                    onMouseLeave={mouseLeave}>
+                    {desc}
+                </div>
                 {hover == "desc" ? <div className="hover">{desc}</div> : null}
+                {expandDesc ? <DescriptionMod descChange={descChange} expandDesc={setExpandDesc} desc={desc}></DescriptionMod> : null}
             </div>
             <div className="cell">
                 <input className="quant" 

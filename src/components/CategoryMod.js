@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import CategoryModItem from './CategoryModItem.js';
 
-function CategoryDropdown(props) {
+function CategoryMod(props) {
     
     const [categories, setCategories] = useState([])
     const [addCat, setAddCat] = useState("");
@@ -30,10 +31,6 @@ function CategoryDropdown(props) {
         }
     }
 
-    function handleCatClick(e){
-        props.categoryChange(e.target.getAttribute("data-key"), e.target.textContent)
-    }
-
     function handleAddCatClick(e){
         e.stopPropagation();
     }
@@ -58,6 +55,7 @@ function CategoryDropdown(props) {
                     console.log(resJson);
                     getCategories();
                     setAddCat("");
+                    props.getInventory();
                 } 
                 else {
                     console.log(res.status);
@@ -81,17 +79,20 @@ function CategoryDropdown(props) {
     }
 
     return (
-        <div className = "category-dropdown">
-            <input type="text" minLength="3" 
-                placeholder={"-add new category-"} 
-                onClick={handleAddCatClick}
-                onChange={(e)=> setAddCat(e.target.value)}
-                onKeyDown={handleAddCatSubmit}
-                value={addCat}>
-            </input>
-            {categories.map(e => <div className="option" onClick={handleCatClick} key={e.category_id} data-key={e.category_id}>{e.name}</div>)}
+        <div className="module" onClick={e=>props.expandCat(false)}>
+            <div className="cat-mod" onClick={e=>e.stopPropagation()}>
+                <h1>Edit Categories</h1>
+                {categories.map(e => <CategoryModItem key={e.category_id} item={e} getCategories={getCategories} getInventory={props.getInventory}></CategoryModItem>)}
+                <input className="new" type="text" minLength="3" 
+                    placeholder={"-add new category-"} 
+                    onClick={handleAddCatClick}
+                    onChange={(e)=> setAddCat(e.target.value)}
+                    onKeyDown={handleAddCatSubmit}
+                    value={addCat}>
+                </input>
+            </div>
         </div>
     );
 }
 
-export default CategoryDropdown;
+export default CategoryMod;

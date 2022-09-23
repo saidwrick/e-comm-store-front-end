@@ -9,7 +9,7 @@ body {
     padding: 25px;
     width: 100%;
     display: grid;
-    grid-template-columns: 5% 15% 8% 15% 20% 8% 16% 13%;
+    grid-template-columns: minmax(30px,5%) 15% 8% 15% 20% 8% 16% 13%;
     box-sizing: border-box;
     min-width: 600px;
 }
@@ -18,6 +18,10 @@ body {
     font-size: 16px;
     font-weight: bold;
     padding: 5px;
+}
+
+.header button{
+    margin-left: 10px;
 }
 
 .inventory .cell,
@@ -36,7 +40,9 @@ body {
     word-break: break-all;
     box-sizing: border-box;
 }
-.inventory input {
+
+.inventory input,
+.inventory .desc {
     all: unset;
     display: inline-block;
     padding: 5px;
@@ -108,4 +114,79 @@ body {
     padding: 5px 10px;
     box-sizing: border-box;
     text-overflow: clip;    
+}
+
+.module {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.568);
+}
+
+.desc-mod {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    height: 60%;
+    width: 50%;
+    box-shadow: 4px 4px 4px 0px rgb(61, 61, 61); 
+    min-width: 300px;
+    padding: 30px;
+}
+
+.module h1{
+    padding-bottom: 10px;
+    font-size: 24px;
+}
+.desc-mod textarea{
+    width: 80%;
+    height: 70%;
+    resize: none;
+    padding: 5px;
+}
+
+.desc-mod .buttons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+}
+
+.cat-mod {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    height: 60%;
+    width: 50%;
+    box-shadow: 4px 4px 4px 0px rgb(61, 61, 61); 
+    min-width: 300px;
+    padding: 50px;
+    gap: 10px;
+    overflow-y: auto;
+}  
+
+.cat-mod .cat-item{
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+.cat-mod .cat-item:hover{
+    background-color: rgb(228, 228, 228);
+}
+
+.cat-mod .new {
+    margin-top: 10px;
+    border: 1px solid grey;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 35px;
 }

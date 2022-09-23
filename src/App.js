@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo } from './redux/todoSlice';
-import Item from './components/Item.js'
-import NewItem from './components/NewItem.js'
+import Item from './components/Item.js';
+import NewItem from './components/NewItem.js';
+import CategoryMod from './components/CategoryMod.js';
 
 function App() {
 
@@ -11,7 +12,8 @@ function App() {
     const todos = useSelector((state) => state.todos);
 
     const [inventory, setInventory] = useState([]);
-
+    const [expandCategory, setExpandCategory] = useState(false);
+    
     async function getInventory(){
         try {
             let res = await fetch("/inventory", {
@@ -82,7 +84,10 @@ function App() {
                 <div className="header">Photo</div>
                 <div className="header">Description</div>
                 <div className="header">Qt</div>
-                <div className="header">Category</div> 
+                <div className="header cat">Category
+                    <button onClick={e=>setExpandCategory(true)}>edit</button>
+                </div>
+                {expandCategory ? <CategoryMod getInventory={getInventory} expandCat={setExpandCategory}></CategoryMod> : null} 
                 <div className="header"></div>
                 {inventory.map(e => <Item key={e.item_id} item={e} getInventory={getInventory}></Item>)}
             </div>
