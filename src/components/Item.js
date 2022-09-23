@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
-import CategoryDropdown from './CategoryDropdown.js'
-import DescriptionMod from './DescriptionMod.js'
+import CategoryDropdown from './CategoryDropdown.js';
+import DescriptionMod from './DescriptionMod.js';
+import ImageMod from './ImageMod.js';
 
 function Item(props) {
 
-//item_id | name   | price | photo       | description              | quantity | category_id
+//item_id | name   | price | image      | description              | quantity | category_id
 
     const [name, setName] = useState();
     const [price, setPrice] = useState();
-    const [photo, setPhoto] = useState();
+    const [imgUrl, setImgUrl] = useState();
     const [desc, setDesc] = useState();
     const [quant, setQuant] = useState();
     const [catId, setCatId] = useState();
     const [cat, setCat] = useState();
     const [disabled, setDisabled] = useState(true);
     const [expandDesc, setExpandDesc] = useState(false);
+    const [expandImg, setExpandImg] = useState(false);
 
     function refreshValues(){
         setName(props.item.name);
         setPrice(props.item.price);
-        setPhoto(props.item.photo);
+        setImgUrl(props.item.image);
         setDesc(props.item.description);
         setQuant(props.item.quantity);
         setCatId(props.item.category_id);
@@ -37,8 +39,8 @@ function Item(props) {
             case "price":
                 setPrice(e.target.value);
                 break;
-            case "photo":
-                setPhoto(e.target.value);
+            case "image":
+                setImgUrl(e.target.value);
                 break;
             case "desc":
                 setDesc(e.target.value);
@@ -76,9 +78,13 @@ function Item(props) {
         setDisabled(false);
     }
 
+    function imgUrlChange(img){
+        setImgUrl(img);
+        setDisabled(false);
+    }
+
     async function updateItem(){
         try {
-            console.log(catId)
             let res = await fetch(`/inventory/${props.item.item_id}`, {
                 method: "PUT",
                 headers: {
@@ -88,6 +94,7 @@ function Item(props) {
                 body: JSON.stringify({
                     "name": name, 
                     "price": price, 
+                    "image": imgUrl,
                     "desc": desc, 
                     "quant": quant, 
                     "cat": catId
@@ -99,7 +106,6 @@ function Item(props) {
             if (res.status === 200) {
                 console.log("success");
                 console.log(resJson);
-                props.getInventory();
                 setDisabled(true);
             } 
             else {
@@ -184,10 +190,12 @@ function Item(props) {
                 {hover == "price" ? <div className="hover">{price}</div> : null}
             </div>
             <div className="cell">
-                <input className="photo" 
-                    onChange={handleChange}
-                    value={photo || ""}>
-                </input>
+                <div className="image" 
+                    onClick={e=>setExpandImg(true)}>
+                    {imgUrl? 
+                    <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_50,w_50/"+imgUrl}></img> : null}
+                </div>
+                {expandImg ? <ImageMod setExpandImg={setExpandImg} setImgUrl={imgUrlChange} imgUrl={imgUrl}></ImageMod> : null}
             </div>
             <div className="cell">
                 <div className="desc" 
@@ -197,7 +205,7 @@ function Item(props) {
                     {desc}
                 </div>
                 {hover == "desc" ? <div className="hover">{desc}</div> : null}
-                {expandDesc ? <DescriptionMod descChange={descChange} expandDesc={setExpandDesc} desc={desc}></DescriptionMod> : null}
+                {expandDesc ? <DescriptionMod descChange={descChange} setExpandDesc={setExpandDesc} desc={desc}></DescriptionMod> : null}
             </div>
             <div className="cell">
                 <input className="quant" 

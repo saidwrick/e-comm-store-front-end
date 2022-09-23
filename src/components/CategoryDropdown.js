@@ -40,6 +40,11 @@ function CategoryDropdown(props) {
 
     async function handleAddCatSubmit(e){
         if (e.key === "Enter"){
+
+            if (addCat.length < 3){
+                return console.log("length error");
+            }
+
             try {
                 let res = await fetch("/categories", {
                     method: "POST",

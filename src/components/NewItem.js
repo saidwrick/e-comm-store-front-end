@@ -1,23 +1,25 @@
 import { useEffect, useState } from 'react';
 import DescriptionMod from './DescriptionMod';
 import CategoryDropdown from './CategoryDropdown';
+import ImageMod from './ImageMod';
 
 function NewItem(props) {
 
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
-    const [photo, setPhoto] = useState("");
+    const [imgUrl, setImgUrl] = useState("");
     const [desc, setDesc] = useState("");
     const [quant, setQuant] = useState("");
     const [catId, setCatId] = useState("");
     const [cat, setCat] = useState("");
     const [hover, setHover] = useState(null);
     const [expandDesc, setExpandDesc] = useState(false);
+    const [expandImg, setExpandImg] = useState(false);
 
     function refreshValues(){
         setName("");
         setPrice("");
-        setPhoto("");
+        setImgUrl("");
         setDesc("");
         setQuant("");
         setCatId(1);
@@ -68,7 +70,7 @@ function NewItem(props) {
                 body: JSON.stringify({
                     "name" : name,
                     "price" : price, 
-                    "photo" : photo, 
+                    "imgUrl" : imgUrl, 
                     "desc" : desc, 
                     "quant" : quant, 
                     "catId" : catId
@@ -121,11 +123,12 @@ function NewItem(props) {
                 {hover == "price" ? <div className="hover">{price}</div> : null}
             </div>
             <div className="cell">
-                <input className="photo" 
-                    onChange={(e)=>setPhoto(e.target.value)}
-                    placeholder="Photo"
-                    value={photo || ""}>
-                </input>
+                <div className="image" 
+                    onClick={e=>setExpandImg(true)}>
+                    {imgUrl? 
+                    <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_50,w_50/"+imgUrl}></img> : "upload icon"}
+                </div>
+                {expandImg ? <ImageMod setExpandImg={setExpandImg} setImgUrl={setImgUrl} imgUrl={imgUrl}></ImageMod> : null}
             </div>
             <div className="cell">
                 <input className="desc" 
@@ -137,7 +140,7 @@ function NewItem(props) {
                     
                 </input>
                 {hover == "desc" ? <div className="hover">{desc}</div> : null}
-                {expandDesc ? <DescriptionMod descChange={descChange} expandDesc={setExpandDesc} desc={desc}></DescriptionMod> : null}
+                {expandDesc ? <DescriptionMod descChange={descChange} setExpandDesc={setExpandDesc} desc={desc}></DescriptionMod> : null}
             </div>
             <div className="cell">
                 <input className="quant" 

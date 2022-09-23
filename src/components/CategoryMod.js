@@ -79,7 +79,7 @@ function CategoryMod(props) {
     }
 
     return (
-        <div className="module" onClick={e=>props.expandCat(false)}>
+        <div className="modal" onClick={e=>props.setExpandCat(false)}>
             <div className="cat-mod" onClick={e=>e.stopPropagation()}>
                 <h1>Edit Categories</h1>
                 {categories.map(e => <CategoryModItem key={e.category_id} item={e} getCategories={getCategories} getInventory={props.getInventory}></CategoryModItem>)}

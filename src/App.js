@@ -81,13 +81,13 @@ function App() {
                 <div className="header">ID</div>
                 <div className="header">Name</div>
                 <div className="header">Price ($)</div>
-                <div className="header">Photo</div>
+                <div className="header">Image</div>
                 <div className="header">Description</div>
                 <div className="header">Qt</div>
                 <div className="header cat">Category
                     <button onClick={e=>setExpandCategory(true)}>edit</button>
                 </div>
-                {expandCategory ? <CategoryMod getInventory={getInventory} expandCat={setExpandCategory}></CategoryMod> : null} 
+                {expandCategory ? <CategoryMod getInventory={getInventory} setExpandCat={setExpandCategory}></CategoryMod> : null} 
                 <div className="header"></div>
                 {inventory.map(e => <Item key={e.item_id} item={e} getInventory={getInventory}></Item>)}
             </div>
