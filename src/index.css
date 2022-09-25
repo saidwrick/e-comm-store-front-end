@@ -56,6 +56,20 @@ body {
     min-width: 600px;
     border-radius: 10px;
 }
+
+.inventory-container .no-items{
+    padding-top: 50px;
+    padding-bottom: 40px;
+    font-size: 18px;
+    color: grey;
+}
+
+.inventory-container .page-buttons{
+    margin-top: 25px;
+    display: flex;
+    gap: 5px;
+}
+
 .inventory, .new-item{
     width: 100%;
     display: grid;
@@ -171,7 +185,7 @@ body {
     left: 0;
     border: 1px solid grey;
     background-color: white;
-    box-shadow: 4px 4px 4px 0px rgba(163, 163, 163, 0.87);
+    box-shadow: 2px 2px 4px 0px rgba(201, 201, 201, 0.87);
     min-width: 200px;
     width: 100%;
     box-sizing: border-box;
@@ -193,6 +207,7 @@ body {
     padding: 5px 10px;
     box-sizing: border-box;
     word-wrap: break-word;
+    font-size: 14px;
 }
 
 .option:hover{

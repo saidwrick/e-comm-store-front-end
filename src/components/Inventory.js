@@ -16,12 +16,14 @@ function Inventory() {
     const [expandSort, setExpandSort] = useState(false);
     const [sortName, setSortName] = useState(null);
     const [sortType, setSortType] = useState(null);
-    const [offset, setOffset] = useState(null);
+    const [offset, setOffset] = useState(0);
+    const [invCount, setInvCount] = useState(0);
     
     function handleFilterClick(e){
         e.stopPropagation();
         // to close filter menu if click outside
         if (!expandFilter){
+            setExpandSort(false);
             function closeFilter (e) {
                 e.stopPropagation();
                 setExpandFilter(false);
@@ -42,6 +44,7 @@ function Inventory() {
         e.stopPropagation();
         // to close sort menu if click outside
         if (!expandSort){
+            setExpandFilter(false);
             function closeSort (e) {
                 e.stopPropagation();
                 setExpandSort(false);
@@ -59,26 +62,26 @@ function Inventory() {
     }
 
     async function getInventory(){
-        console.log(sortType)
-        const headers = new Headers();
-        headers.append('Content-type', 'application/json');
+
+        let params = []
         if (offset){
-            headers.append('offset', offset);
+            params.push("offset=" + offset);
         }
         if (catIdFilter){
-            headers.append('category', catIdFilter);
+            params.push("category=" + catIdFilter);
         }
         if (search && search!= ""){
-            headers.append('search', search);
+            params.push("search=" + search);
         }
         if (sortType){
-            headers.append('order', sortType);
+            params.push("order=" + sortType);
         }
 
+        let joinedParams = params.join("&");
+
         try {
-            let res = await fetch("/inventory", {
+            let res = await fetch("/inventory?" + joinedParams, {
                 method: "GET",
-                headers: headers
             });
             
             let resJson = await res.json();
@@ -86,7 +89,8 @@ function Inventory() {
             if (res.status === 200) {
                 console.log("success");
                 console.log(resJson);
-                setInventory(resJson);
+                setInventory(resJson.inventory);
+                setInvCount(resJson.count);
             } 
             else {
                 console.log(res.status);
@@ -97,6 +101,21 @@ function Inventory() {
         catch (err) {
             console.log(err);
             // navigate("/404", { state: {err: err}});
+        }
+    }
+
+    function nextPage(){
+        if (invCount > offset+10){
+            setOffset(offset+10);
+        }
+    }
+
+    function prevPage(){
+        if (offset-10 >= 0){
+            setOffset(offset-10)
+        }
+        else if (offset > 0){
+            setOffset(0);
         }
     }
 
@@ -145,6 +164,13 @@ function Inventory() {
                 <div className="header"></div>
                 {inventory.map(e => <Item key={e.item_id} item={e} getInventory={getInventory}></Item>)}
             </div>
+            {inventory.length > 0 ? 
+                <div className="page-buttons">
+                    <button onClick={prevPage} disabled={offset==0}>{'<'}</button>
+                    <button onClick={nextPage} disabled={invCount <= offset+10}>{'>'}</button>
+                </div>
+                : null}
+            {inventory.length == 0 ? <div className="no-items">No Items</div> : null}
             <div className="new-item-header">Add New Item</div>
             <NewItem getInventory={getInventory}></NewItem>
         </div>
