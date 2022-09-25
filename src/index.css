@@ -1,23 +1,74 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    margin: 0;
+    font-family:'Helvetica Neue', sans-serif;
+    background-color: rgb(233, 233, 233);
+    display: flex;
+    align-items: center;
+    flex-direction: center;
 }
 
+.search-bar{
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+    height: 35px;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-bar .search{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 1px solid grey;
+    padding: 3px 10px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.search-bar input{
+    all: unset;
+    font-size: 14px;
+    width: 100%;
+    height: 100%;
+}
+
+.search-bar button{
+    height: 100%;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 5px;
+    white-space: nowrap;
+}
+
+.inventory-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 45px;
+    background-color: white;
+    margin: 10px;
+    min-width: 600px;
+    border-radius: 10px;
+}
 .inventory, .new-item{
-    padding: 25px;
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(30px,5%) 15% 8% 70px 1fr 8% 16% 13%;
+    grid-template-columns: 90px 15% 12% 1fr 12% 16% 13%;
     box-sizing: border-box;
     min-width: 600px;
 }
 
 .inventory>.header{
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     padding: 5px;
+    margin-bottom: 5px;
 }
 
 .header button{
@@ -27,11 +78,22 @@ body {
 .inventory .cell,
 .new-item .cell {
     position: relative;
-    border: 1px solid lightgrey;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
     margin-top: -1px;
     margin-left: -1px;
-    padding: 2px;
+    padding: 5px;
     min-width: 0;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.cell-text{
+    position: relative;
+    width: 100%;
 }
 
 .inventory .id,
@@ -44,6 +106,7 @@ body {
 
 .inventory input,
 .inventory .desc {
+    position: relative;
     all: unset;
     display: inline-block;
     padding: 5px;
@@ -62,13 +125,24 @@ body {
     border: 1px solid black;
     white-space: pre-wrap;
     max-width: 200px;
-    font-size: 14px;
+    font-size: 12px;
     left: 10px;
+    top: calc(100% + 5px);
     overflow-wrap: break-word;
 }
 
-.new-item .cell {
-    border: 1px solid grey;
+.new-item-header {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 45px;
+    width: 100%;
+}
+
+.new-item{
+    padding-top: 15px;
+    padding-bottom: 25px;
 }
 
 .cell .image {
@@ -88,7 +162,7 @@ body {
     text-overflow: ellipsis;
 }
 
-.category-dropdown {
+.category-dropdown, .filter-dropdown, .sort-dropdown {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -97,7 +171,7 @@ body {
     left: 0;
     border: 1px solid grey;
     background-color: white;
-    box-shadow: 0px 1px 2px 0px rgb(61, 61, 61);
+    box-shadow: 4px 4px 4px 0px rgba(163, 163, 163, 0.87);
     min-width: 200px;
     width: 100%;
     box-sizing: border-box;
@@ -107,10 +181,18 @@ body {
     gap: 5px;
 }
 
+.filter-dropdown, .sort-dropdown{
+    width: 250px;
+    left: auto;
+    top: calc(100% + 5px);
+    right: 0;
+    max-height: 200px;
+}
+
 .option{
     padding: 5px 10px;
     box-sizing: border-box;
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 
 .option:hover{
@@ -146,20 +228,23 @@ body {
     background-color: white;
     height: 60%;
     width: 40%;
-    box-shadow: 4px 4px 4px 0px rgb(61, 61, 61); 
+    box-shadow: 4px 4px 4px 0px rgba(46, 46, 46, 0.651);
     min-width: 300px;
     padding: 30px;
+    overflow-y: auto;
 }
 
 .modal h1{
     padding-bottom: 10px;
-    font-size: 24px;
+    font-size: 20px;
 }
 .desc-mod textarea{
-    width: 80%;
+    width: 95%;
     height: 70%;
     resize: none;
     padding: 5px;
+    border-radius: 10px;
+    border: 1px solid grey;
 }
 
 .desc-mod .buttons,
@@ -192,6 +277,7 @@ body {
     width: 100%;
     box-sizing: border-box;
     min-height: 35px;
+    border-radius: 10px;
 }
 
 .img-mod .img-preview{
@@ -204,4 +290,8 @@ body {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.img-mod input{
+    min-height: 30px;
 }

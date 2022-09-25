@@ -106,6 +106,7 @@ function Item(props) {
             if (res.status === 200) {
                 console.log("success");
                 console.log(resJson);
+                props.getInventory();
                 setDisabled(true);
             } 
             else {
@@ -168,27 +169,6 @@ function Item(props) {
 
     return (
         <>
-            <div className="id">{props.item.item_id}</div>
-            <div className="cell">
-                <input className="name" 
-                    type="text"
-                    onChange={handleChange}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-                    value={name || ""}>
-                </input>
-                {hover == "name" ? <div className="hover">{name}</div> : null}
-            </div>
-            <div className="cell">
-                <input className="price" 
-                    type="number" min="0"
-                    onChange={handleChange}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-                    value={price || ""}>
-                </input>
-                {hover == "price" ? <div className="hover">{price}</div> : null}
-            </div>
             <div className="cell">
                 <div className="image" 
                     onClick={e=>setExpandImg(true)}>
@@ -198,43 +178,73 @@ function Item(props) {
                 {expandImg ? <ImageMod setExpandImg={setExpandImg} setImgUrl={imgUrlChange} imgUrl={imgUrl}></ImageMod> : null}
             </div>
             <div className="cell">
-                <div className="desc" 
-                    onClick={e=>setExpandDesc(true)}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}>
-                    {desc}
+                <div className="cell-text">
+                    <input className="name" 
+                        type="text"
+                        onChange={handleChange}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+                        value={name || ""}>
+                    </input>
+                    {hover == "name" ? <div className="hover">{name}</div> : null}
                 </div>
-                {hover == "desc" ? <div className="hover">{desc}</div> : null}
+            </div>
+            <div className="cell">
+                <div className="cell-text">
+                    <input className="price" 
+                        type="number" min="0"
+                        onChange={handleChange}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+                        value={price || ""}>
+                    </input>
+                    {hover == "price" ? <div className="hover">{price}</div> : null}
+                </div>
+            </div>
+            <div className="cell">
+                <div className="cell-text">
+                    <div className="desc" 
+                        onClick={e=>setExpandDesc(true)}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}>
+                        {desc}
+                    </div>
+                    {hover == "desc" ? <div className="hover">{desc}</div> : null}
+                </div>
                 {expandDesc ? <DescriptionMod descChange={descChange} setExpandDesc={setExpandDesc} desc={desc}></DescriptionMod> : null}
             </div>
             <div className="cell">
-                <input className="quant" 
-                    type="number" min="0"
-                    onChange={handleChange}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-                    value={quant || ""}>
-                </input>
-                {hover == "quant" ? <div className="hover">{quant}</div> : null}
+                <div className="cell-text">
+                    <input className="quant" 
+                        type="number" min="0"
+                        onChange={handleChange}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+                        value={quant || ""}>
+                    </input>
+                    {hover == "quant" ? <div className="hover">{quant}</div> : null}
+                </div>
             </div>
-            <div className="cell">    
-                <div className="cat"
-                    onInput={handleChange}
-                    onClick={handleCategoriesClick}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}>
-                    {cat}
+            <div className="cell">
+                <div className="cell-text">    
+                    <div className="cat"
+                        onInput={handleChange}
+                        onClick={handleCategoriesClick}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}>
+                        {cat}
+                    </div>
+                    {hover == "cat" ? <div className="hover">{cat}</div> : null}
                 </div>
                 {expandCategories ? <CategoryDropdown categoryChange={categoryChange}></CategoryDropdown> : null}
-                {hover == "cat" ? <div className="hover">{cat}</div> : null}
             </div>
-            <div>
+            <div className="cell">
                 <div className="buttons">
                     <button className="save" disabled={disabled} onClick={updateItem}>save</button>
                     <button className="reset" disabled={disabled} onClick={refreshValues}>reset</button>
                     <button className="del" onClick={deleteItem}>del</button>
                 </div>
-            </div>
+            </div>  
         </>
     );
 }

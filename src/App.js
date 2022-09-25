@@ -1,46 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo } from './redux/todoSlice';
-import Item from './components/Item.js';
-import NewItem from './components/NewItem.js';
-import CategoryMod from './components/CategoryMod.js';
+import Inventory from './components/Inventory.js';
 
 function App() {
 
     const [value, setValue] = useState("");
     const dispatch = useDispatch();
     const todos = useSelector((state) => state.todos);
-
-    const [inventory, setInventory] = useState([]);
-    const [expandCategory, setExpandCategory] = useState(false);
-    
-    async function getInventory(){
-        try {
-            let res = await fetch("/inventory", {
-                method: "GET",
-                headers: {
-                    "type" : "general"
-                },
-            });
-            
-            let resJson = await res.json();
-            
-            if (res.status === 200) {
-                console.log("success");
-                console.log(resJson);
-                setInventory(resJson);
-            } 
-            else {
-                console.log(res.status);
-                console.log(resJson);
-                //navigate 404
-            }
-        } 
-        catch (err) {
-            console.log(err);
-            // navigate("/404", { state: {err: err}});
-        }
-    }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -50,11 +17,6 @@ function App() {
             }));
         }
     }
-
-    useEffect(() => {
-        getInventory();
-
-    },[])
 
     return (
         <div className="App">
@@ -77,21 +39,7 @@ function App() {
                     Submit
                 </button>
 		    </form>
-            <div className = "inventory">
-                <div className="header">ID</div>
-                <div className="header">Name</div>
-                <div className="header">Price ($)</div>
-                <div className="header">Image</div>
-                <div className="header">Description</div>
-                <div className="header">Qt</div>
-                <div className="header cat">Category
-                    <button onClick={e=>setExpandCategory(true)}>edit</button>
-                </div>
-                {expandCategory ? <CategoryMod getInventory={getInventory} setExpandCat={setExpandCategory}></CategoryMod> : null} 
-                <div className="header"></div>
-                {inventory.map(e => <Item key={e.item_id} item={e} getInventory={getInventory}></Item>)}
-            </div>
-            <NewItem getInventory={getInventory}></NewItem>
+        <Inventory></Inventory>
         </div>
     );
 }

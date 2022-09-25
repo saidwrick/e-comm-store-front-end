@@ -84,6 +84,7 @@ function NewItem(props) {
                 console.log(resJson);
                 refreshValues();
                 props.getInventory();
+                setEnableSave(false);
             } 
             else {
                 console.log(res.status);
@@ -97,76 +98,95 @@ function NewItem(props) {
         }
     }
 
+    const [enableSave, setEnableSave] = useState(false);
+
+    useEffect(() => {
+        if (name != "" & price != "" && imgUrl != "" && desc != "" & quant != "" & catId != "" & cat != ""){
+            setEnableSave(true);
+        }
+        else {
+            setEnableSave(false);
+        }
+    })
+
     return (
         <div className = "new-item">
-            <div className="id"></div>
             <div className="cell">
-                <input className="name" 
-                    type="text"
-                    onChange={(e)=>setName(e.target.value)}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-                    placeholder="Name"
-                    value={name || ""}>
-                </input>
-                {hover == "name" ? <div className="hover">{name}</div> : null}
+                    <div className="image" 
+                        onClick={e=>setExpandImg(true)}>
+                        {imgUrl? 
+                        <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_50,w_50/"+imgUrl}></img> : "upload icon"}
+                    </div>
+                    {expandImg ? <ImageMod setExpandImg={setExpandImg} setImgUrl={setImgUrl} imgUrl={imgUrl}></ImageMod> : null}
             </div>
             <div className="cell">
-                <input className="price" 
-                    type="number" min="0"
-                    onChange={(e)=>setPrice(e.target.value)}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-                    placeholder="Price"
-                    value={price || ""}>
-                </input>
-                {hover == "price" ? <div className="hover">{price}</div> : null}
-            </div>
-            <div className="cell">
-                <div className="image" 
-                    onClick={e=>setExpandImg(true)}>
-                    {imgUrl? 
-                    <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_50,w_50/"+imgUrl}></img> : "upload icon"}
+                <div className="cell-text">
+                    <input className="name" 
+                        type="text"
+                        onChange={(e)=>setName(e.target.value)}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+                        placeholder="Name"
+                        value={name || ""}>
+                    </input>
+                    {hover == "name" ? <div className="hover">{name}</div> : null}
                 </div>
-                {expandImg ? <ImageMod setExpandImg={setExpandImg} setImgUrl={setImgUrl} imgUrl={imgUrl}></ImageMod> : null}
             </div>
             <div className="cell">
-                <input className="desc" 
-                    onClick={e=>setExpandDesc(true)}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-                    placeholder="Description"
-                    value={desc}>
-                    
-                </input>
-                {hover == "desc" ? <div className="hover">{desc}</div> : null}
+                <div className="cell-text">
+                    <input className="price" 
+                        type="number" min="0"
+                        onChange={(e)=>setPrice(e.target.value)}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+                        placeholder="Price"
+                        value={price || ""}>
+                    </input>
+                    {hover == "price" ? <div className="hover">{price}</div> : null}
+                </div>
+            </div>
+            <div className="cell">
+                <div className="cell-text">
+                    <input className="desc" 
+                        onClick={e=>setExpandDesc(true)}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+                        placeholder="Description"
+                        value={desc}>
+                    </input>
+                    {hover == "desc" ? <div className="hover">{desc}</div> : null}
+                </div>
                 {expandDesc ? <DescriptionMod descChange={descChange} setExpandDesc={setExpandDesc} desc={desc}></DescriptionMod> : null}
             </div>
             <div className="cell">
-                <input className="quant" 
-                    type="number" min="0"
-                    onChange={(e)=>setQuant(e.target.value)}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-                    placeholder="Qt"
-                    value={quant || ""}>
-                </input>
-                {hover == "quant" ? <div className="hover">{quant}</div> : null}
+                <div className="cell-text">
+                    <input className="quant" 
+                        type="number" min="0"
+                        onChange={(e)=>setQuant(e.target.value)}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+                        placeholder="Qt"
+                        value={quant || ""}>
+                    </input>
+                    {hover == "quant" ? <div className="hover">{quant}</div> : null}
+                </div>
             </div>
             <div className="cell">    
-                <input className="cat"
-                    onClick={handleCategoriesClick}
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseLeave}
-                    placeholder="Category"
-                    value={cat}>
-                </input>
+                <div className="cell-text">
+                    <input className="cat"
+                        onClick={handleCategoriesClick}
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+                        placeholder="Category"
+                        value={cat}>
+                    </input>
+                    {hover == "cat" ? <div className="hover">{cat}</div> : null}
+                </div>
                 {expandCategories ? <CategoryDropdown categoryChange={categoryChange}></CategoryDropdown> : null}
-                {hover == "cat" ? <div className="hover">{cat}</div> : null}
             </div>
-            <div>
+            <div className="cell">
                 <div className="buttons">
-                    <button onClick={addItem}>Add</button>
+                    <button onClick={addItem} disabled={!enableSave}>Add</button>
                     <button onClick={refreshValues}>Reset</button>
                 </div>
             </div>
