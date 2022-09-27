@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo } from './redux/todoSlice';
 import Inventory from './components/Inventory.js';
+import Store from './components/Store.js';
 
 function App() {
 
@@ -39,7 +40,7 @@ function App() {
                     Submit
                 </button>
 		    </form>
-        <Inventory></Inventory>
+            <Store></Store>
         </div>
     );
 }

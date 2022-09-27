@@ -5,9 +5,208 @@ body {
     display: flex;
     align-items: center;
     flex-direction: center;
+    max-width: 100%;
+    width: 100%;
 }
 
-.search-bar{
+#root{
+    width: 100%;
+}
+
+.store {
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas: 
+    "header header"
+    "sidebar main";
+    background-color: white;
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.store .header{
+    grid-area: header;
+    width: 100%;
+    padding: 25px 50px;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    box-sizing: border-box;
+    align-items: center;
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid lightgrey;
+}
+
+.store .header button{
+    all: unset;
+}
+
+.store .left-menu{
+    grid-area: sidebar;
+    height: 500px;
+    max-width: 100%;
+    position: sticky;
+    top: 50px;   
+    padding: 25px;
+    word-wrap: break-word;
+    overflow-y: auto;
+}
+
+.left-menu .current-page{
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.left-menu .store-category{
+    margin-bottom: 20px;
+    font-size: 18px;
+    cursor:pointer;
+}
+
+.store .main{
+    grid-area: main;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.store .main .products-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.store .search-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 25px 25px 35px 25px;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.store .search{
+    display: flex;
+    align-items: center;
+    width: 35%;
+    min-width: 300px;
+    height: 50px;
+    padding: 3px 20px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: rgb(236, 236, 236);
+    border-radius: 50px;
+}
+
+.store .search-bar input{
+    all:unset;
+    font-size: 16px;
+    width: 100%;
+}
+
+.store .sort{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    width: auto;
+    height: 30px;
+    margin-left: 25px;
+    padding: 5px;
+}
+
+.store .sort .sort-dropdown{
+    border: none;
+    height: auto;
+    right: -3px;
+    max-height:none;
+    overflow-y: visible;
+    overflow: visible;
+    padding: 5px;
+}
+
+.store .sort .option{
+    font-size: 16px;
+    padding: 10px;
+}
+.store .search-bar .sort button{
+    all: unset;
+    font-size: 16px;
+    height: 100%;
+    white-space: nowrap;
+}
+
+.store .main .products{
+    display: flex;
+    flex-wrap:wrap;
+    width: 100%;
+    gap: 35px;
+    row-gap: 100px;
+    padding: 0px 25px;
+    box-sizing: border-box;
+    margin-bottom: 150px;
+}
+
+.store-card{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 100%;
+    max-width: 400px;
+    min-width: 300px;
+    min-height: 450px;
+    gap: 10px;
+    font-size: 18px;
+    flex: 1;
+}
+
+.store-card .img-container{
+    width: 100%;
+    max-height: 400px;
+}
+
+.store-card .img-container img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.store-card .limited{
+    color: rgb(102, 0, 0);
+}
+
+.store-card .name{
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+.store-card button{
+    margin-top: auto;
+    width: 100px;
+    height: 30px;
+}
+.store .cart-menu{
+    position:sticky;
+    top: 50px;
+    background-color: red;
+    height: 100vh;
+    width: 250px;
+    flex: none;
+}
+
+.inventory-container .search-bar{
     display: flex;
     position: relative;
     width: 100%;
@@ -17,7 +216,7 @@ body {
     gap: 5px;
 }
 
-.search-bar .search{
+.inventory-container .search-bar .search{
     display: flex;
     align-items: center;
     width: 100%;
@@ -28,14 +227,14 @@ body {
     box-sizing: border-box;
 }
 
-.search-bar input{
+.inventory-container .search-bar input{
     all: unset;
     font-size: 14px;
     width: 100%;
     height: 100%;
 }
 
-.search-bar button{
+.inventory-container .search-bar button{
     height: 100%;
     width: 100px;
     min-width: 100px;
@@ -95,7 +294,6 @@ body {
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
     margin-top: -1px;
-    margin-left: -1px;
     padding: 5px;
     min-width: 0;
     min-height: 100%;

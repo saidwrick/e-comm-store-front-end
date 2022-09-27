@@ -124,14 +124,29 @@ function Inventory() {
 
     },[])
 
+    // if changing category/ sort need to reset offset to 0 otherwise get inventory
+    useEffect(() => {
+        if (offset != 0){
+            setOffset(0);
+        }
+        else {
+            getInventory();
+        }
+    },[sortName, catFilter])
+
     useEffect(() => {
         getInventory();
-    },[sortName, catFilter, offset])
+    },[offset])
 
     //auto search after delay
     useEffect(() => {
         const delayDebounceFn = setTimeout(async () => {
-            getInventory();
+            if (offset != 0){
+                setOffset(0);
+            }
+            else {
+                getInventory();
+            }
         }, 300)
     
         return () => clearTimeout(delayDebounceFn)
