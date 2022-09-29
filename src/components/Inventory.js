@@ -167,12 +167,12 @@ function Inventory() {
                 {expandSort ? <SortDropdown sortChange={sortChange}></SortDropdown> : null}
             </div>
             <div className="inventory">
-                <div className="header">Image</div>
-                <div className="header">Name</div>
-                <div className="header">Price ($)</div>
-                <div className="header">Description</div>
-                <div className="header">Qt</div>
-                <div className="header cat">Category
+                <div className="inv-header">Image</div>
+                <div className="inv-header">Name</div>
+                <div className="inv-header">Price ($)</div>
+                <div className="inv-header">Description</div>
+                <div className="inv-header">Qt</div>
+                <div className="inv-header cat">Category
                     <button onClick={e=>setExpandCategory(true)}>edit</button>
                 </div>
                 {expandCategory ? <CategoryMod getInventory={getInventory} setExpandCat={setExpandCategory}></CategoryMod> : null} 

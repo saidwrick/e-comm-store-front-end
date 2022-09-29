@@ -7,28 +7,21 @@ body {
     flex-direction: center;
     max-width: 100%;
     width: 100%;
+    min-height: 100vh;
 }
 
 #root{
     width: 100%;
-}
-
-.store {
-    display: grid;
-    grid-template-rows: 50px 1fr;
-    grid-template-columns: 300px 1fr;
-    grid-template-areas: 
-    "header header"
-    "sidebar main";
-    background-color: white;
     height: 100%;
-    max-width: 100%;
-    width: 100%;
-    box-sizing: border-box;
 }
 
-.store .header{
-    grid-area: header;
+.App{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.App .header{
     width: 100%;
     padding: 25px 50px;
     display: flex;
@@ -43,8 +36,53 @@ body {
     border-bottom: 1px solid lightgrey;
 }
 
-.store .header button{
+.header a{
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    color: black;
+    text-decoration: none;
+    user-select: none;
+}
+
+.header a:visited{
+    color: black;
+    text-decoration: none;
+}
+
+.header button{
     all: unset;
+}
+
+.cart-container{
+    display: flex;
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.568);
+    justify-content: flex-end;
+}
+
+.cart{
+    background-color: white;
+    height: 100%;
+    width: 400px;
+    border-left: solid 1px lightgrey;
+}
+
+.store {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas: 
+    "sidebar main";
+    background-color: white;
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .store .left-menu{
@@ -165,22 +203,37 @@ body {
     background-color: white;
     width: 100%;
     max-width: 400px;
-    min-width: 300px;
+    min-width: 350px;
     min-height: 450px;
     gap: 10px;
     font-size: 18px;
     flex: 1;
 }
 
+.store-card a{
+    text-decoration: none;
+    color: black;
+}
+
+.store-card a:visited{
+    text-decoration: none;
+    color: black;
+}
+
 .store-card .img-container{
     width: 100%;
     max-height: 400px;
+    cursor: pointer;
 }
 
 .store-card .img-container img{
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.store-card .price{
+    cursor: pointer;
 }
 
 .store-card .limited{
@@ -190,20 +243,93 @@ body {
 .store-card .name{
     font-weight: bold;
     word-wrap: break-word;
+    cursor: pointer;
 }
 
 .store-card button{
+    all:unset;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    border-radius: 50px;
     margin-top: auto;
     width: 100px;
-    height: 30px;
+    height: 35px;
+    cursor: pointer;
 }
-.store .cart-menu{
-    position:sticky;
-    top: 50px;
-    background-color: red;
-    height: 100vh;
-    width: 250px;
-    flex: none;
+
+.store-card button:hover{
+    background-color: rgb(43, 43, 43);
+}
+
+.product-page{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 50px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.product-image{
+    width: 100%;
+    max-width: 600px;
+    min-width: 300px;
+}
+
+.product-image img{
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-info{
+    overflow-wrap: break-word;
+    padding: 25px;
+    width: 350px;
+    min-width: 250px;
+    height: 100%;
+}
+
+.product-info .name{
+    font-size: 36px;
+}
+
+.product-info .category{
+    
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.product-info .price{
+    margin-top: 30px;
+    font-size: 24px;
+}
+
+.product-info button{
+    all: unset;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 50px;
+    padding: 10px 25px;
+    background-color: black;
+    width: 100%;
+    height: 40px;
+    color: white;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.product-info button:hover{
+    background-color: rgb(43, 43, 43);
+}
+
+.product-info .desc{
+    white-space: pre-line;
+    margin-top: 50px;
+    font-size: 18px;
 }
 
 .inventory-container .search-bar{
@@ -264,9 +390,13 @@ body {
 }
 
 .inventory-container .page-buttons{
-    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
     display: flex;
     gap: 5px;
+    width: 100%;
+    border-top: 1px solid lightgrey;
 }
 
 .inventory, .new-item{
@@ -277,14 +407,15 @@ body {
     min-width: 600px;
 }
 
-.inventory>.header{
+.inv-header{
     font-size: 14px;
     font-weight: bold;
     padding: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
-.header button{
+.inv-header button{
+    all: unset;
     margin-left: 10px;
 }
 
@@ -292,7 +423,6 @@ body {
 .new-item .cell {
     position: relative;
     border-top: 1px solid lightgrey;
-    border-bottom: 1px solid lightgrey;
     margin-top: -1px;
     padding: 5px;
     min-width: 0;
@@ -301,6 +431,10 @@ body {
     align-items: center;
     box-sizing: border-box;
     font-size: 14px;
+}
+
+.new-item .cell{
+    border-bottom: 1px solid lightgrey;
 }
 
 .cell-text{
@@ -494,7 +628,7 @@ body {
 }
 
 .img-mod .img-preview{
-    height: 50%;
+    height: 80%;
     width: 70%;
     margin-bottom: 50px;
 }

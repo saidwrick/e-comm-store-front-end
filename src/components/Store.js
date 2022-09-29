@@ -185,10 +185,6 @@ function Store(props) {
 
     return (
         <div className="store">
-            <div className="header">
-                <div>storeify</div>
-                <button onClick={e=>setExpandCart(!expandCart)}>cart</button>
-            </div>
             <div className="left-menu">
                 <div className="current-page">
                     {catFilter ? catFilter + ` (${invCount})` : `All Products (${invCount})`}
@@ -220,11 +216,7 @@ function Store(props) {
                         : null}
                     </div>
                 </div>
-                <div className="cart-menu" style={expandCart ? null : {display : 'none'}}>
-                    x
-                </div>
             </div>
-
         </div>
     );
 }

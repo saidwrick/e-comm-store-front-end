@@ -8,12 +8,12 @@ function StoreCard(props) {
 
     return (
         <div className="store-card">
-            <div className="img-container">
-                <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_500,w_500/"+props.item.image}></img>
-            </div>
+            <a className="img-container" href={`/products/${props.item.item_id}`}>
+                <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_500,w_500,q_auto/"+props.item.image}></img>
+            </a>
             {props.item.quantity <= 5 ? <div className="limited">* only {props.item.quantity} left in stock</div> : null}
-            <div className="name">{props.item.name}</div>
-            <div className="price">${props.item.price}</div>
+            <a className="name" href={`/products/${props.item.item_id}`}>{props.item.name}</a>
+            <a className="price" href={`/products/${props.item.item_id}`}>${props.item.price}</a>
             <button>add to cart</button>
         </div>
     );

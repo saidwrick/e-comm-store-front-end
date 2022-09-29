@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route} from "react-router-dom";
 import { addTodo } from './redux/todoSlice';
-import Inventory from './components/Inventory.js';
 import Store from './components/Store.js';
+import Header from './components/Header.js';
+import ProductPage from './components/ProductPage.js';
 
 function App() {
 
@@ -40,7 +42,12 @@ function App() {
                     Submit
                 </button>
 		    </form>
-            <Store></Store>
+        
+        <Header></Header>
+        <Routes>
+            <Route path="/" element={<Store/>} />
+            <Route path="products/:id" element={<ProductPage/>} />
+        </Routes>
         </div>
     );
 }

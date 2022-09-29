@@ -36,7 +36,7 @@ function ImageMod(props) {
     
     useEffect(() => {
         if (props.imgUrl && props.imgUrl!=""){
-            setPrevImg("https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_300,w_300/"+props.imgUrl)
+            setPrevImg("https://res.cloudinary.com/dzflnyjtm/image/upload/w_300,q_auto/"+props.imgUrl)
         }
     },[props])
 
