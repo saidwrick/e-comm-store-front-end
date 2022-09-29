@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from './cartSlice';
 import todoReducer from './todoSlice';
+import expandCartReducer from './expandCartSlice'
 import { throttle } from 'lodash'
 
 function loadState(){
@@ -30,6 +32,8 @@ const previousState = loadState()
 const store = configureStore({
     reducer: {
         todos: todoReducer,
+        cart: cartReducer,
+        expandCart: expandCartReducer,
     },
     preloadedState: previousState,
 });

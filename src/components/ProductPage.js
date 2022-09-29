@@ -1,10 +1,22 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../redux/cartSlice';
+import { useParams } from 'react-router-dom'
+import { expandCartTrue } from '../redux/expandCartSlice'
+
 
 function ProductPage() {
 
     const [item, setItem] = useState(null);
     const {id} = useParams();
+    const dispatch = useDispatch();
+
+    function addToCart(){
+        dispatch(addItem({
+            item : item
+        }));
+        dispatch(expandCartTrue());
+    }
 
     async function getItem(){
         try {
@@ -51,7 +63,7 @@ function ProductPage() {
                 <div className="name">{item.name}</div>
                 <div className="category">{item.category}</div>
                 <div className="price">{`$` + item.price}</div>
-                <button>Add to Cart</button>
+                <button onClick={addToCart}>Add to Cart</button>
                 <div className="desc">{item.description}</div>
             </div>
         </div>

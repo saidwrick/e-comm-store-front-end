@@ -155,6 +155,7 @@ function Inventory() {
 
     return (
         <div className="inventory-container">
+            <h1> Inventory</h1>
             <div className="search-bar">
                 <div className="search">
                     <input placeholder="Search inventory" value={search} 

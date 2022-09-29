@@ -1,6 +1,17 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../redux/cartSlice';
+import { expandCartTrue } from '../redux/expandCartSlice'
 
 function StoreCard(props) {
+    const dispatch = useDispatch();
+
+    function addToCart(){
+        dispatch(addItem({
+            item : props.item
+        }));
+        dispatch(expandCartTrue());
+    }
 
     if (!props.item) {
         return null;
@@ -14,7 +25,7 @@ function StoreCard(props) {
             {props.item.quantity <= 5 ? <div className="limited">* only {props.item.quantity} left in stock</div> : null}
             <a className="name" href={`/products/${props.item.item_id}`}>{props.item.name}</a>
             <a className="price" href={`/products/${props.item.item_id}`}>${props.item.price}</a>
-            <button>add to cart</button>
+            <button onClick={addToCart}>add to cart</button>
         </div>
     );
 }

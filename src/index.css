@@ -1,13 +1,9 @@
 body {
-    margin: 0;
     font-family:'Helvetica Neue', sans-serif;
-    background-color: rgb(233, 233, 233);
-    display: flex;
-    align-items: center;
-    flex-direction: center;
     max-width: 100%;
     width: 100%;
     min-height: 100vh;
+    margin: 0;
 }
 
 #root{
@@ -36,7 +32,7 @@ body {
     border-bottom: 1px solid lightgrey;
 }
 
-.header a{
+.header>a{
     font-size: 24px;
     font-weight: bold;
     letter-spacing: -2px;
@@ -45,16 +41,18 @@ body {
     user-select: none;
 }
 
-.header a:visited{
+.header>a:visited{
     color: black;
     text-decoration: none;
 }
 
 .header button{
     all: unset;
+    cursor: pointer;
+    min-height: 100%;  
 }
 
-.cart-container{
+.cart-bg{
     display: flex;
     z-index: 3;
     position: fixed;
@@ -64,15 +62,142 @@ body {
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.568);
     justify-content: flex-end;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    0% { 
+        background-color: rgba(0, 0, 0, 0);; 
+    }
+    100% { 
+        background-color: rgba(0, 0, 0, 0.568);
+    }
+}
+
+.cart-container{
+    height: 100%;
+    max-height: 100vh;
+    overflow-y : scroll;
+    animation: slideIn 0.5s;
+    box-sizing: border-box;
 }
 
 .cart{
     background-color: white;
-    height: 100%;
-    width: 400px;
+    height: auto;
+    min-height: 100%;
+    width: 450px;
     border-left: solid 1px lightgrey;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
+@keyframes slideIn {
+    0% { 
+        transform: translateX(250px);
+    }
+    100% { 
+        transform: translateX(0); 
+    }
+}
+
+.cart> .close{
+    all:unset;
+    font-size: 24px;
+    cursor: pointer;
+    align-self: flex-end;
+    font-weight: bold;
+}
+
+.cart .total {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.cart h2{
+    word-wrap: break-word;
+}
+
+.cart .checkout {
+    background-color: black;
+    color: white;
+    min-width: 150px;
+    height: 45px;
+    text-align: center;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+.cart .checkout:hover{
+    background-color: rgb(34, 34, 34);
+}
+
+.cart a{
+    color: black;
+    text-decoration: none;
+}
+
+.cart a:visited{
+    color: black;
+    text-decoration: none;
+}
+
+.cart h1{
+    margin-top: 0px;
+}
+
+.cart-item{
+    display: flex;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.cart-desc{
+    display: flex;
+    flex-direction: column;
+    padding-left: 25px;
+}
+.cart-item .name{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.cart-item .price{
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.cart-item .quant{
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    font-size: 16px;
+    align-items: center;
+}
+
+.cart-item .quant input{
+    all: unset;
+    border: 1px solid lightgrey;
+    padding: 3px;
+    width: 45px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.cart-item .delete{
+    all: unset;
+    margin-left: auto;
+    align-self: flex-start;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 15px;
+    font-weight: bold;
+    color: rgb(151, 151, 151);
+}
 .store {
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -203,7 +328,7 @@ body {
     background-color: white;
     width: 100%;
     max-width: 400px;
-    min-width: 350px;
+    min-width: 300px;
     min-height: 450px;
     gap: 10px;
     font-size: 18px;
@@ -332,6 +457,22 @@ body {
     font-size: 18px;
 }
 
+.inventory-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px;
+    background-color: white;
+    min-width: 600px;
+    border-radius: 10px;
+}
+
+.inventory-container h1{
+    margin-bottom: 0;
+    align-self: flex-start;
+    padding-bottom: 25px;
+}
+
 .inventory-container .search-bar{
     display: flex;
     position: relative;
@@ -347,7 +488,7 @@ body {
     align-items: center;
     width: 100%;
     height: 100%;
-    border: 1px solid grey;
+    border: 1px solid rgb(194, 194, 194);
     padding: 3px 10px;
     border-radius: 3px;
     box-sizing: border-box;
@@ -369,17 +510,6 @@ body {
     overflow: hidden;
     padding: 5px;
     white-space: nowrap;
-}
-
-.inventory-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 45px;
-    background-color: white;
-    margin: 10px;
-    min-width: 600px;
-    border-radius: 10px;
 }
 
 .inventory-container .no-items{
