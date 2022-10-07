@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import CategoryDropdown from './CategoryDropdown.js';
 import DescriptionMod from './DescriptionMod.js';
 import ImageMod from './ImageMod.js';
+import { ReactComponent as CheckIcon} from '../icons/check.svg'
+import { ReactComponent as RefreshIcon} from '../icons/refresh.svg'
+import { ReactComponent as DeleteIcon} from '../icons/delete.svg'
 
 function Item(props) {
 
@@ -240,9 +243,9 @@ function Item(props) {
             </div>
             <div className="cell">
                 <div className="buttons">
-                    <button className="save" disabled={disabled} onClick={updateItem}>save</button>
-                    <button className="reset" disabled={disabled} onClick={refreshValues}>reset</button>
-                    <button className="del" onClick={deleteItem}>del</button>
+                    <button className="reset" disabled={disabled} onClick={refreshValues}><RefreshIcon/></button>
+                    <button className="save" disabled={disabled} onClick={updateItem}><CheckIcon/></button>
+                    <button className="del" onClick={deleteItem}><DeleteIcon/></button>
                 </div>
             </div>  
         </>

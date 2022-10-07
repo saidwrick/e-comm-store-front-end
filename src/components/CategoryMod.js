@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import CategoryModItem from './CategoryModItem.js';
+import { ReactComponent as CloseIcon} from '../icons/close.svg'
 
 function CategoryMod(props) {
     
@@ -81,7 +82,10 @@ function CategoryMod(props) {
     return (
         <div className="modal" onClick={e=>props.setExpandCat(false)}>
             <div className="cat-mod" onClick={e=>e.stopPropagation()}>
-                <h1>Edit Categories</h1>
+                <div className="modal-header">
+                    <h1>Edit Categories</h1>
+                    <button className="close" onClick={e=>props.setExpandCat(false)}><CloseIcon/></button>
+                </div>
                 {categories.map(e => <CategoryModItem key={e.category_id} item={e} getCategories={getCategories} getInventory={props.getInventory}></CategoryModItem>)}
                 <input className="new" type="text" minLength="3" 
                     placeholder={"-add new category-"} 

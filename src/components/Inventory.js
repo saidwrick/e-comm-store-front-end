@@ -4,6 +4,10 @@ import NewItem from './NewItem.js';
 import CategoryMod from './CategoryMod.js';
 import FilterDropdown from './FilterDropdown.js';
 import SortDropdown from './SortDropdown.js';
+import { ReactComponent as SearchIcon} from '../icons/search.svg'
+import { ReactComponent as FilterIcon} from '../icons/filter.svg'
+import { ReactComponent as SortIcon} from '../icons/sort.svg'
+import { ReactComponent as EditIcon} from '../icons/edit.svg'
 
 function Inventory() {
 
@@ -158,12 +162,24 @@ function Inventory() {
             <h1> Inventory</h1>
             <div className="search-bar">
                 <div className="search">
+                    <SearchIcon className="search-icon"/>
                     <input placeholder="Search inventory" value={search} 
                         onChange={e=>setSearch(e.target.value)}>
                     </input>
                 </div>
-                <button onClick={handleFilterClick}>{catFilter ? catFilter : "Filter"}</button>
-                <button onClick={handleSortClick}>{sortName ? sortName : "Sort"}</button>
+                
+                <button onClick={handleFilterClick}>
+                        <FilterIcon className="filter-icon"/>
+                        <div className="search-bar-button-text">
+                            {catFilter ? catFilter : "Filter"}
+                        </div>
+                </button>
+                <button onClick={handleSortClick}>
+                    <SortIcon className="sort-icon"/>
+                    <div className="search-bar-button-text">
+                        {sortName ? sortName : "Sort"}
+                    </div>
+                </button>
                 {expandFilter ? <FilterDropdown categoryChange={categoryChange}></FilterDropdown> : null}
                 {expandSort ? <SortDropdown sortChange={sortChange}></SortDropdown> : null}
             </div>
@@ -173,8 +189,11 @@ function Inventory() {
                 <div className="inv-header">Price ($)</div>
                 <div className="inv-header">Description</div>
                 <div className="inv-header">Qt</div>
-                <div className="inv-header cat">Category
-                    <button onClick={e=>setExpandCategory(true)}>edit</button>
+                <div className="inv-header">
+                    <div className="cat">
+                        Category
+                        <button onClick={e=>setExpandCategory(true)} className="category-edit"><EditIcon/></button>
+                    </div>
                 </div>
                 {expandCategory ? <CategoryMod getInventory={getInventory} setExpandCat={setExpandCategory}></CategoryMod> : null} 
                 <div className="header"></div>

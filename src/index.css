@@ -11,10 +11,30 @@ body {
     height: 100%;
 }
 
+.nav-bar{
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+    background-color: rgb(73, 145, 59);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 0px 25px;
+}
+
+.nav-bar, .nav-bar a{
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+}
+
 .App{
     display: flex;
     flex-direction: column;
     height: 100%;
+    max-width: 100%;
 }
 
 .App .header{
@@ -27,8 +47,8 @@ body {
     align-items: center;
     background-color: white;
     position: sticky;
-    top: 0;
-    z-index: 1;
+    top: 60px;
+    z-index: 5;
     border-bottom: 1px solid lightgrey;
 }
 
@@ -54,10 +74,10 @@ body {
 
 .cart-bg{
     display: flex;
-    z-index: 3;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 5;
     height: 100vh;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.568);
@@ -118,9 +138,42 @@ body {
     margin-bottom: 25px;
 }
 
+.header svg{
+    min-height: 40px;
+    min-width: 35px;
+}
+
+.header .cart-icon{
+    position: relative;
+}
+.header .cart-icon-total{
+    position: absolute;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    top: 19px;
+    left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .cart h2{
     word-wrap: break-word;
 }
+
+.cart .close {
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart .close svg {
+    flex: none;
+    height: 25px;
+    width: 25px;
+    min-height: 15px;
+    min-width: 15px;
+}  
 
 .cart .checkout {
     background-color: black;
@@ -195,8 +248,15 @@ body {
     cursor: pointer;
     font-size: 24px;
     line-height: 15px;
-    font-weight: bold;
-    color: rgb(151, 151, 151);
+}
+
+.cart-item .delete svg{
+    min-height: 10px;
+    min-width: 10px;
+    height: 15px;
+    width: 15px;
+    stroke: rgb(151, 151, 151);
+    
 }
 .store {
     display: grid;
@@ -237,6 +297,8 @@ body {
     grid-area: main;
     background-color: white;
     height: 100%;
+    max-width: 100%;
+    min-width: 1px;
     width: 100%;
     display: flex;
     box-sizing: border-box;
@@ -247,6 +309,11 @@ body {
     flex-direction: column;
     width: 100%;
     align-items: center;
+}
+
+.store .main .products-wrapper .no-items{
+    font-size: 18px;
+    color: grey;
 }
 
 .store .search-bar {
@@ -273,22 +340,19 @@ body {
     border-radius: 50px;
 }
 
+.store .search-bar svg{
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+}
+
 .store .search-bar input{
     all:unset;
     font-size: 16px;
     width: 100%;
 }
 
-.store .sort{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    width: auto;
-    height: 30px;
-    margin-left: 25px;
-    padding: 5px;
-}
+
 
 .store .sort .sort-dropdown{
     border: none;
@@ -304,11 +368,41 @@ body {
     font-size: 16px;
     padding: 10px;
 }
+
+.store .sort{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: 100%;
+    width: 100%;
+    min-width: 1px;
+    height: 30px;
+    margin-left: 25px;
+    padding: 5px;
+    flex: 1;
+}
+
 .store .search-bar .sort button{
     all: unset;
+    displaY: flex;
     font-size: 16px;
     height: 100%;
     white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.store .sort .button-text{
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.store .sort svg{
+    height: 25px;
+    width: 25px;
+    flex: none;
 }
 
 .store .main .products{
@@ -462,6 +556,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 60px;
+    padding-top: 10px;
     background-color: white;
     min-width: 600px;
     border-radius: 10px;
@@ -489,9 +584,16 @@ body {
     width: 100%;
     height: 100%;
     border: 1px solid rgb(194, 194, 194);
-    padding: 3px 10px;
+    padding: 3px 5px;
     border-radius: 3px;
     box-sizing: border-box;
+}
+
+.search-icon {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+    fill: grey;
 }
 
 .inventory-container .search-bar input{
@@ -503,13 +605,31 @@ body {
 
 .inventory-container .search-bar button{
     height: 100%;
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
     text-overflow: ellipsis;
     overflow: hidden;
-    padding: 5px;
+    padding: 7px;
     white-space: nowrap;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+    background-color: rgb(235, 235, 235);
+    border: none;
+}
+
+.search-bar-button-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.search-bar button svg{
+    flex: none;
+    margin-right: 5px;
+    max-height: 20px;
+    max-width: 20px;
 }
 
 .inventory-container .no-items{
@@ -529,6 +649,17 @@ body {
     border-top: 1px solid lightgrey;
 }
 
+.inventory-container .page-buttons button{
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(102, 102, 102);
+}
+.inventory-container .page-buttons button:disabled{
+    color: lightgrey;
+}
+
 .inventory, .new-item{
     width: 100%;
     display: grid;
@@ -542,11 +673,31 @@ body {
     font-weight: bold;
     padding: 5px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 
-.inv-header button{
+.inv-header .cat{
+    display: flex;
+    align-items: center;
+}
+
+.inv-header .category-edit{
     all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: 10px;
+    cursor: pointer;
+}
+
+.inv-header button svg{
+    height: 20px;
+    width: 20px;
+}
+
+.inventory-container .page-buttons button:enabled{
+    cursor: pointer;
 }
 
 .inventory .cell,
@@ -629,6 +780,59 @@ body {
     cursor: pointer;
 }
 
+.cell .buttons{
+    margin-left: 10px;
+    display: flex;
+    gap: 5px;
+    margin-left: auto;
+}
+
+.cell button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none; 
+}
+
+.cell button:enabled {
+    cursor: pointer;
+}
+
+.cell button:disabled svg{
+    fill: lightgrey;
+}
+
+.cell button svg{
+    height: 20px;
+    width: 20px;
+}
+
+.save svg{
+    fill: rgb(27, 116, 27);
+}
+
+.reset svg{
+    fill: rgb(64, 109, 207);
+}
+
+.del svg{
+    height: 18px;
+    width: 18px;
+    fill: rgb(216, 104, 104);
+}
+
+.add svg{
+    fill: rgb(27, 116, 27);
+    height: 23px;
+    width: 23px;
+}
+
+.cell .image svg{
+    height: 30px;
+    width: 30px;
+    fill: rgb(124, 124, 124);
+}
 .new-item input {
     all:unset;
     width: 85%;
@@ -670,6 +874,7 @@ body {
     box-sizing: border-box;
     word-wrap: break-word;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .option:hover{
@@ -697,6 +902,63 @@ body {
     background-color: rgba(0, 0, 0, 0.568);
 }
 
+.modal-header{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.modal h1{
+    padding: 0px;
+    padding-top: 10px;
+    align-self: flex-end;
+    font-size: 20px;
+}
+
+.modal .close{
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+}
+
+.modal .close svg{
+    min-height: 1px;
+    min-width: 1px;
+    height: 20px;
+    width: 20px;
+}
+
+.modal .buttons{
+    all: unset;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal .buttons button{
+    background-color: rgb(235, 235, 235);
+    height: 30px;
+    width: auto;
+    padding: 5px 20px;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.modal .buttons button:hover{
+    background-color: rgb(207, 207, 207);
+}
+
+.desc-mod .buttons,
+.img-mod .buttons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+}
+
 .desc-mod, .cat-mod, .img-mod {
     border-radius: 10px;
     display: flex;
@@ -711,25 +973,14 @@ body {
     overflow-y: auto;
 }
 
-.modal h1{
-    padding-bottom: 10px;
-    font-size: 20px;
-}
 .desc-mod textarea{
     width: 95%;
     height: 70%;
     resize: none;
-    padding: 5px;
-    border-radius: 10px;
-    border: 1px solid grey;
-}
-
-.desc-mod .buttons,
-.img-mod .buttons{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+    border: 1px solid rgb(196, 196, 196);
 }
 
 .cat-mod {
@@ -748,6 +999,25 @@ body {
     background-color: rgb(228, 228, 228);
 }
 
+.cat-mod .cat-item button{
+    background-color: transparent;
+    border: none;
+    margin-left: 5px;
+}
+
+.cat-mod .cat-item button:enabled{
+    cursor: pointer;
+}
+
+.cat-mod .cat-item button:disabled svg{
+    fill: lightgrey;
+}
+
+.cat-mod .cat-item button svg{
+    height: 16px;
+    width: 16px;
+}
+
 .cat-mod .new {
     margin-top: 10px;
     border: 1px solid grey;
@@ -755,6 +1025,10 @@ body {
     box-sizing: border-box;
     min-height: 35px;
     border-radius: 10px;
+}
+
+.img-mod h1{
+    margin-bottom: 25px;
 }
 
 .img-mod .img-preview{

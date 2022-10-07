@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import DescriptionMod from './DescriptionMod';
 import CategoryDropdown from './CategoryDropdown';
 import ImageMod from './ImageMod';
+import { ReactComponent as PlusIcon} from '../icons/plus.svg'
+import { ReactComponent as RefreshIcon} from '../icons/refresh.svg'
+import { ReactComponent as ImgIcon} from '../icons/new-img.svg'
 
 function NewItem(props) {
 
@@ -15,6 +18,8 @@ function NewItem(props) {
     const [hover, setHover] = useState(null);
     const [expandDesc, setExpandDesc] = useState(false);
     const [expandImg, setExpandImg] = useState(false);
+    const [enableSave, setEnableSave] = useState(false);
+    const [enableRefresh, setEnableRefresh] = useState(false);
 
     function refreshValues(){
         setName("");
@@ -22,8 +27,9 @@ function NewItem(props) {
         setImgUrl("");
         setDesc("");
         setQuant("");
-        setCatId(1);
+        setCatId("");
         setCat("");
+        setEnableRefresh(false);
     }
     function descChange(text){
         setDesc(text);
@@ -98,14 +104,16 @@ function NewItem(props) {
         }
     }
 
-    const [enableSave, setEnableSave] = useState(false);
-
     useEffect(() => {
         if (name != "" & price != "" && imgUrl != "" && desc != "" & quant != "" & catId != "" & cat != ""){
             setEnableSave(true);
         }
         else {
             setEnableSave(false);
+        }
+
+        if (name != "" || price != "" || imgUrl != "" || desc != "" || quant != "" || catId != "" || cat != ""){
+            setEnableRefresh(true);
         }
     })
 
@@ -115,7 +123,7 @@ function NewItem(props) {
                     <div className="image" 
                         onClick={e=>setExpandImg(true)}>
                         {imgUrl? 
-                        <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_50,w_50/"+imgUrl}></img> : "upload icon"}
+                        <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_50,w_50/"+imgUrl}></img> : <ImgIcon/>}
                     </div>
                     {expandImg ? <ImageMod setExpandImg={setExpandImg} setImgUrl={setImgUrl} imgUrl={imgUrl}></ImageMod> : null}
             </div>
@@ -186,8 +194,8 @@ function NewItem(props) {
             </div>
             <div className="cell">
                 <div className="buttons">
-                    <button onClick={addItem} disabled={!enableSave}>Add</button>
-                    <button onClick={refreshValues}>Reset</button>
+                    <button className="reset" onClick={refreshValues} disabled={!enableRefresh}><RefreshIcon/></button>
+                    <button className="add" onClick={addItem} disabled={!enableSave}><PlusIcon/></button>
                 </div>
             </div>
         </div>

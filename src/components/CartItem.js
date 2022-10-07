@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem, changeQuant} from '../redux/cartSlice';
+import { ReactComponent as CloseIcon} from '../icons/close.svg'
 
 function CartItem(props) {
 
@@ -43,7 +44,7 @@ function CartItem(props) {
                     <input min="0" onKeyDown={preventInput} maxLength={5} value={props.quant} onChange={updateQuant}></input>
                 </div>
             </div>
-            <button className="delete" onClick={removeFromCart}>x</button>
+            <button className="delete" onClick={removeFromCart}><CloseIcon/></button>
         </div>  
     );
 }

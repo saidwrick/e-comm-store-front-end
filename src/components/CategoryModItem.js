@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { ReactComponent as DeleteIcon} from '../icons/delete.svg'
+import { ReactComponent as CheckIcon} from '../icons/check.svg'
 
 function CategoryModItem(props) {
     
@@ -79,8 +81,8 @@ function CategoryModItem(props) {
     return (
         <div className="cat-item">
             <input value={name} onChange={handleInput}></input>
-            <button onClick={handleSave} disabled={!saveEnabled}>save</button>
-            <button onClick={handleDel}>del</button>
+            <button onClick={handleSave} className="save" disabled={!saveEnabled}><CheckIcon/></button>
+            <button onClick={handleDel} className="del"><DeleteIcon/></button>
         </div>
     );
 }

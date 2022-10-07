@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ReactComponent as CloseIcon} from '../icons/close.svg'
 
 function DescriptionMod(props) {
 
@@ -22,7 +23,10 @@ function DescriptionMod(props) {
     return (
         <div className="modal" onClick={e=>props.setExpandDesc(false)}>
             <div onClick={e=>e.stopPropagation()} className="desc-mod">
-                <h1>Edit Description</h1>
+                <div className="modal-header">
+                    <h1>Edit Description</h1>
+                    <button className="close" onClick={e=>props.setExpandDesc(false)}><CloseIcon/></button>
+                </div>
                 <textarea  onChange={e=>setText(e.target.value)} value={text}></textarea>
                 <div className="buttons">
                     <button onClick={handleSubmit}>ok</button>

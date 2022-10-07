@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import StoreCard from './StoreCard.js';
 import SortDropdown from './SortDropdown.js';
+import { ReactComponent as SearchIcon} from '../icons/search.svg'
+import { ReactComponent as SortIcon} from '../icons/sort.svg'
 
 function Store(props) {
     
@@ -201,19 +203,25 @@ function Store(props) {
                 <div className="products-wrapper">
                     <div className="search-bar">    
                         <div className="search">
+                            <SearchIcon/>
                             <input placeholder="Search inventory" value={search} 
                                 onChange={e=>setSearch(e.target.value)}>
                             </input>
                         </div>
-                        <div className="sort" onClick={handleSortClick}>
-                            <button>{sortName ? `Sort By: ${sortName}` : "Sort By "}</button>
+                        <div className="sort">
+                            <button onClick={handleSortClick}>
+                                <SortIcon/>
+                                <div className="button-text">
+                                    {sortName ? `${sortName}` : "Sort By "}
+                                </div>
+                            </button>
                             {expandSort ? <SortDropdown sortChange={sortChange}></SortDropdown> : null}
                         </div>
                     </div>
                     <div className="products" ref={productsEndRef}>
                         {inventory.length > 0 ?
                             inventory.map(e=> <StoreCard key={e.item_id} item={e}></StoreCard>)
-                        : null}
+                        : <div className="no-items">No Items Available</div>}
                     </div>
                 </div>
             </div>

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from './CartItem.js';
 import { expandCartTrue, expandCartFalse} from '../redux/expandCartSlice'
+import { ReactComponent as CartIcon} from '../icons/bag.svg'
+import { ReactComponent as CloseIcon} from '../icons/close.svg'
 
 function Header() {
 
@@ -32,13 +34,18 @@ function Header() {
     return (
         <div className="header">
             <a href="/">storeify</a>
-            <button onClick={openCart}>cart {totalItems}</button>
+            <button onClick={openCart} className="cart-icon">
+            <CartIcon/>
+                <div className="cart-icon-total">
+                    {totalItems < 100 ? totalItems : "99+"}
+                </div>
+            </button>
             {console.log(cart)}
             {expandCart ? 
                 <div className="cart-bg" onClick={closeCart}>
                     <div className="cart-container">
                         <div className="cart" onClick={e=>e.stopPropagation()}>
-                            <button className="close" onClick={closeCart}>X</button>
+                            <button className="close" onClick={closeCart}><CloseIcon/></button>
                             <h1>Cart</h1>
                             <div className="total">
                                 <h2>Total: ${totalCost.toFixed(2)}</h2>

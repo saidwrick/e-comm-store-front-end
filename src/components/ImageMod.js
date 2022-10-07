@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ReactComponent as CloseIcon} from '../icons/close.svg'
 
 function ImageMod(props) {
 
@@ -47,7 +48,10 @@ function ImageMod(props) {
     return (
         <div className="modal" onClick={e=>props.setExpandImg(false)}>
             <div onClick={e=>e.stopPropagation()} className="img-mod">
+                <div className="modal-header">
                 <h1>Upload Image</h1>
+                    <button className="close" onClick={e=>props.setExpandImg(false)}><CloseIcon/></button>
+                </div>
                 <div className="img-preview">
                     <img src={prevImg ? prevImg : null}></img>
                 </div>
