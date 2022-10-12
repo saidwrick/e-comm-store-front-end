@@ -149,6 +149,26 @@ function Item(props) {
         }
     }
 
+    function toggleImg(){
+        if (expandImg){
+            document.body.style.overflow = null;
+        }
+        else{
+            document.body.style.overflow = "hidden";
+        }
+        setExpandImg(!expandImg)
+    }
+
+    function toggleDesc(){
+        if (expandDesc){
+            document.body.style.overflow = null;
+        }
+        else{
+            document.body.style.overflow = "hidden";
+        }
+        setExpandDesc(!expandDesc)
+    }
+
 // display full value on hover
     const [hover, setHover] = useState();
 
@@ -174,11 +194,11 @@ function Item(props) {
         <>
             <div className="cell">
                 <div className="image" 
-                    onClick={e=>setExpandImg(true)}>
+                    onClick={toggleImg}>
                     {imgUrl? 
                     <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_50,w_50/"+imgUrl}></img> : null}
                 </div>
-                {expandImg ? <ImageMod setExpandImg={setExpandImg} setImgUrl={imgUrlChange} imgUrl={imgUrl}></ImageMod> : null}
+                {expandImg ? <ImageMod toggleImg={toggleImg} setImgUrl={imgUrlChange} imgUrl={imgUrl}></ImageMod> : null}
             </div>
             <div className="cell">
                 <div className="cell-text">
@@ -207,14 +227,14 @@ function Item(props) {
             <div className="cell">
                 <div className="cell-text">
                     <div className="desc" 
-                        onClick={e=>setExpandDesc(true)}
+                        onClick={toggleDesc}
                         onMouseEnter={mouseEnter}
                         onMouseLeave={mouseLeave}>
                         {desc}
                     </div>
                     {hover == "desc" ? <div className="hover">{desc}</div> : null}
                 </div>
-                {expandDesc ? <DescriptionMod descChange={descChange} setExpandDesc={setExpandDesc} desc={desc}></DescriptionMod> : null}
+                {expandDesc ? <DescriptionMod descChange={descChange} toggleDesc={toggleDesc} desc={desc}></DescriptionMod> : null}
             </div>
             <div className="cell">
                 <div className="cell-text">

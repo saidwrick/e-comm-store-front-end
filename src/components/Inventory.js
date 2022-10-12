@@ -123,6 +123,16 @@ function Inventory() {
         }
     }
 
+    function categoryToggle(){
+        if (expandCategory){
+            document.body.style.overflow = null;
+        }
+        else{
+            document.body.style.overflow = "hidden";
+        }
+        setExpandCategory(!expandCategory)
+    }
+
     useEffect(() => {
         getInventory();
 
@@ -192,10 +202,10 @@ function Inventory() {
                 <div className="inv-header">
                     <div className="cat">
                         Category
-                        <button onClick={e=>setExpandCategory(true)} className="category-edit"><EditIcon/></button>
+                        <button onClick={categoryToggle} className="category-edit"><EditIcon/></button>
                     </div>
                 </div>
-                {expandCategory ? <CategoryMod getInventory={getInventory} setExpandCat={setExpandCategory}></CategoryMod> : null} 
+                {expandCategory ? <CategoryMod getInventory={getInventory} categoryToggle={categoryToggle}></CategoryMod> : null} 
                 <div className="header"></div>
                 {inventory.map(e => <Item key={e.item_id} item={e} getInventory={getInventory}></Item>)}
             </div>
@@ -209,7 +219,6 @@ function Inventory() {
             <div className="new-item-header">Add New Item</div>
             <NewItem getInventory={getInventory}></NewItem>
         </div>
-
     );
 }
 

@@ -6,9 +6,20 @@ import Navbar from "./components/Navbar.js";
 
 const RouteSwitch = () => {
 
+    // in order to preserve usability for Inventory page in mobile sizes
+    useEffect(()=>{
+        if(window.location.pathname==='/inventory'){
+            document.documentElement.style.minWidth="800px";
+        }
+        else{
+            document.documentElement.style.minWidth= null;
+        }
+    });
+
     return (
+       
         <BrowserRouter>
-                <Navbar></Navbar>
+            <Navbar></Navbar>
                 <Routes>
                     <Route path="/*" element={<App/>} />
                     <Route path="/inventory" element={<Inventory/>}/>

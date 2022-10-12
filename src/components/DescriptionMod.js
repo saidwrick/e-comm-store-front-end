@@ -7,7 +7,7 @@ function DescriptionMod(props) {
 
     function handleSubmit(){
         props.descChange(text)
-        props.setExpandDesc(false)
+        props.toggleDesc();
     }
     
     useEffect(() => {
@@ -21,16 +21,16 @@ function DescriptionMod(props) {
     }
 
     return (
-        <div className="modal" onClick={e=>props.setExpandDesc(false)}>
+        <div className="modal" onClick={props.toggleDesc}>
             <div onClick={e=>e.stopPropagation()} className="desc-mod">
                 <div className="modal-header">
+                    <button className="close" onClick={props.toggleDesc}><CloseIcon/></button>
                     <h1>Edit Description</h1>
-                    <button className="close" onClick={e=>props.setExpandDesc(false)}><CloseIcon/></button>
                 </div>
                 <textarea  onChange={e=>setText(e.target.value)} value={text}></textarea>
                 <div className="buttons">
                     <button onClick={handleSubmit}>ok</button>
-                    <button onClick={e=>props.setExpandDesc(false)}>cancel</button>
+                    <button onClick={props.toggleDesc}>cancel</button>
                 </div>
             </div>
         </div>

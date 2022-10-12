@@ -6,10 +6,12 @@ function ImageMod(props) {
     const [selectedFile, setSelectedFile] = useState("");
     const [prevImg, setPrevImg] = useState("");
 
-    function handleSubmit(){
-    }
-
     async function uploadImg(){
+
+        if (selectedFile == ""){
+            props.toggleImg();
+            return
+        }
         const data = new FormData();
         data.append("file", selectedFile);
         data.append("upload_preset", "qnxs59uo");
@@ -23,7 +25,7 @@ function ImageMod(props) {
             let resJson = await res.json();
             console.log("img uploaded");
             props.setImgUrl(resJson.public_id);
-            props.setExpandImg(false);
+            props.toggleImg();
         }
         catch (err){
             console.log(err);
@@ -46,11 +48,11 @@ function ImageMod(props) {
     }
 
     return (
-        <div className="modal" onClick={e=>props.setExpandImg(false)}>
+        <div className="modal" onClick={props.toggleImg}>
             <div onClick={e=>e.stopPropagation()} className="img-mod">
                 <div className="modal-header">
-                <h1>Upload Image</h1>
-                    <button className="close" onClick={e=>props.setExpandImg(false)}><CloseIcon/></button>
+                    <button className="close" onClick={props.toggleImg}><CloseIcon/></button>
+                    <h1>Upload Image</h1>
                 </div>
                 <div className="img-preview">
                     <img src={prevImg ? prevImg : null}></img>
@@ -58,7 +60,7 @@ function ImageMod(props) {
                 <input id="file" type="file" onChange={handleSelectedFile}></input>
                 <div className="buttons">
                     <button onClick={uploadImg}>ok</button>
-                    <button onClick={e=>props.setExpandImg(false)}>cancel</button>
+                    <button onClick={props.toggleImg}>cancel</button>
                 </div>
             </div>
         </div>

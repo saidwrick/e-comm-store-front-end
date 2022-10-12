@@ -191,13 +191,16 @@ function Store(props) {
                 <div className="current-page">
                     {catFilter ? catFilter + ` (${invCount})` : `All Products (${invCount})`}
                 </div>
-                <div className="store-category" onClick={resetCategory}>All Products</div>
-                {categories ? 
-                    categories.map(e=><div className="store-category" 
-                    key={e.category_id} 
-                    data-key={e.category_id}
-                    onClick={changeCategory}>{e.name}</div>)
-                : null}
+                <div className="store-categories">
+                    <div className="store-category" onClick={resetCategory}>All Products</div>
+                    {categories ? 
+                        categories.map(e=><div className="store-category" 
+                        key={e.category_id} 
+                        data-key={e.category_id}
+                        onClick={changeCategory}>{e.name}</div>)
+                    : null}
+                </div>
+
             </div>
             <div className="main">
                 <div className="products-wrapper">
