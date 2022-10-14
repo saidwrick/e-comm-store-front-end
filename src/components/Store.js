@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import {useNavigate} from "react-router-dom";
 import StoreCard from './StoreCard.js';
 import SortDropdown from './SortDropdown.js';
 import { ReactComponent as SearchIcon} from '../icons/search.svg'
@@ -17,6 +18,8 @@ function Store(props) {
     const [sortType, setSortType] = useState(null);
     const [offset, setOffset] = useState(0);
     const [categories, setCategories] = useState();
+
+    const navigate = useNavigate();
 
     async function getInventory(){
         let params = []
@@ -57,12 +60,12 @@ function Store(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
+                throw res;
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
+            navigate("/404", { state: {err: "Internal server error"}});
         }
     }
 
@@ -82,12 +85,10 @@ function Store(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
         }
     }
 

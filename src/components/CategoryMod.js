@@ -6,6 +6,8 @@ function CategoryMod(props) {
     
     const [categories, setCategories] = useState([])
     const [addCat, setAddCat] = useState("");
+    const [expandError, setExpandError] =useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
     async function getCategories(){
         try {
@@ -23,12 +25,10 @@ function CategoryMod(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
         }
     }
 
@@ -37,6 +37,7 @@ function CategoryMod(props) {
     }
 
     async function handleAddCatSubmit(e){
+        setExpandError(false);
         if (e.key === "Enter"){
             try {
                 let res = await fetch("/categories", {
@@ -61,14 +62,19 @@ function CategoryMod(props) {
                 else {
                     console.log(res.status);
                     console.log(resJson);
-                    //navigate 404
+                    handleError(resJson)
                 }
             } 
             catch (err) {
                 console.log(err);
-                // navigate("/404", { state: {err: err}});
+                handleError(err)
             }
         }
+    }
+
+    function handleError (message) {
+        setExpandError(true);
+        setErrorMsg(message);
     }
 
     useEffect(() => {
@@ -86,7 +92,17 @@ function CategoryMod(props) {
                     <button className="close" onClick={props.categoryToggle}><CloseIcon/></button>
                     <h1>Edit Categories</h1>
                 </div>
-                {categories.map(e => <CategoryModItem key={e.category_id} item={e} getCategories={getCategories} getInventory={props.getInventory}></CategoryModItem>)}
+                {expandError ?
+                    <div className="error">{errorMsg}</div>
+                :null}
+                {categories.map(e => 
+                    <CategoryModItem 
+                        key={e.category_id} 
+                        item={e} 
+                        getCategories={getCategories} 
+                        getInventory={props.getInventory}
+                        handleError={handleError}>
+                    </CategoryModItem>)}
                 <input className="new" type="text" minLength="3" 
                     placeholder={"-add new category-"} 
                     onClick={handleAddCatClick}

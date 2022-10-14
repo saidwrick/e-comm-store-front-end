@@ -14,7 +14,7 @@ body {
 .nav-bar{
     position: sticky;
     top: 0px;
-    z-index: 2;
+    z-index: 5;
     background-color: rgb(73, 145, 59);
     height: 60px;
     display: flex;
@@ -728,6 +728,24 @@ body {
     width: 100%;
 }
 
+.cell .error{
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    z-index: 1;
+    background-color: rgb(255, 211, 211);
+    width: max-content;
+    min-height: 30px;
+    color: red;
+    padding: 10px;
+    animation: fade 0.5s;
+    white-space: pre-line;
+}
+
+.cell .error::before{
+    content: "* "
+}
+
 .inventory .id,
 .inventory .cat {
     padding: 5px;
@@ -786,6 +804,7 @@ body {
 }
 
 .cell .buttons{
+    position: relative;
     margin-left: 10px;
     display: flex;
     gap: 5px;
@@ -851,7 +870,7 @@ body {
     display: flex;
     flex-direction: column;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     top: 35px;
     left: 0;
     border: 1px solid grey;
@@ -915,6 +934,26 @@ body {
     width: 100%;
     padding-bottom: 25px;
 }
+
+.modal .error{
+    color: red;
+    align-self: flex-start;
+    white-space: pre-line;
+    animation: fade 0.5s;
+}
+
+.modal .error::before{
+    content: "* "
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+  }
 
 .modal h1{
     padding: 0px;
@@ -1039,9 +1078,10 @@ body {
 }
 
 .img-mod .img-preview{
-    height: 80%;
-    width: 70%;
+    min-height: 200px;
+    width: 80%;
     margin-bottom: 50px;
+    box-sizing: border-box;
 }
 
 .img-mod img{
@@ -1052,6 +1092,10 @@ body {
 
 .img-mod input{
     min-height: 30px;
+}
+
+.error-page {
+    padding: 25px;
 }
 
 @media only screen and (max-width: 780px) {

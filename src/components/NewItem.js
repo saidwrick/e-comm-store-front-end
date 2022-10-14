@@ -18,8 +18,11 @@ function NewItem(props) {
     const [hover, setHover] = useState(null);
     const [expandDesc, setExpandDesc] = useState(false);
     const [expandImg, setExpandImg] = useState(false);
+    const [expandCategories, setExpandCategories] = useState(false);
     const [enableSave, setEnableSave] = useState(false);
     const [enableRefresh, setEnableRefresh] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [expandError, setExpandError] = useState(false);
 
     function refreshValues(){
         setName("");
@@ -34,8 +37,6 @@ function NewItem(props) {
     function descChange(text){
         setDesc(text);
     }
-
-    const [expandCategories, setExpandCategories] = useState(false);
 
     function handleCategoriesClick(e){
         e.stopPropagation();
@@ -91,16 +92,19 @@ function NewItem(props) {
                 refreshValues();
                 props.getInventory();
                 setEnableSave(false);
+                setExpandError(false);
             } 
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
+                setExpandError(true);
+                setErrorMsg(resJson);
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
+            setExpandError(true);
+            setErrorMsg(err);
         }
     }
 
@@ -136,6 +140,14 @@ function NewItem(props) {
             setEnableRefresh(true);
         }
     })
+
+    useEffect(() => {
+        if (expandError){
+            setTimeout(()=>{
+                setExpandError(false);
+            }, 3000)
+        };
+    },[expandError])
 
     return (
         <div className = "new-item">
@@ -214,6 +226,9 @@ function NewItem(props) {
             </div>
             <div className="cell">
                 <div className="buttons">
+                    {expandError?
+                        <div className="error">{errorMsg}</div>
+                    :null}
                     <button className="reset" onClick={refreshValues} disabled={!enableRefresh}><RefreshIcon/></button>
                     <button className="add" onClick={addItem} disabled={!enableSave}><PlusIcon/></button>
                 </div>

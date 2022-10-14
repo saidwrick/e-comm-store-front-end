@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {useNavigate} from "react-router-dom";
 import { addItem } from '../redux/cartSlice';
 import { useParams } from 'react-router-dom'
 import { expandCartTrue } from '../redux/expandCartSlice'
@@ -10,6 +11,8 @@ function ProductPage() {
     const [item, setItem] = useState(null);
     const {id} = useParams();
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     function addToCart(){
         dispatch(addItem({
@@ -32,15 +35,18 @@ function ProductPage() {
                 setItem(resJson[0]);
             } 
 
+            else if (res.status === 404){
+                throw "404 Page not found"
+            }
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
+                throw "Internal server error"
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
+            navigate("/404", { state: {err: err}});
         }
     }
 

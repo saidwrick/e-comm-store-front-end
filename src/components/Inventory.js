@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Item from './Item.js';
 import NewItem from './NewItem.js';
 import CategoryMod from './CategoryMod.js';
@@ -23,6 +24,8 @@ function Inventory() {
     const [offset, setOffset] = useState(0);
     const [invCount, setInvCount] = useState(0);
     
+    const navigate = useNavigate();
+
     function handleFilterClick(e){
         e.stopPropagation();
         // to close filter menu if click outside
@@ -99,12 +102,12 @@ function Inventory() {
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
+                throw res;
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
+            navigate("/404", { state: {err: "Internal server error"}});
         }
     }
 

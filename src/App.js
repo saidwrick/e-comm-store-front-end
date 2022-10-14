@@ -5,6 +5,7 @@ import { addTodo } from './redux/todoSlice';
 import Store from './components/Store.js';
 import Header from './components/Header.js';
 import ProductPage from './components/ProductPage.js';
+import ErrorPage from './components/ErrorPage.js'
 
 function App() {
 
@@ -14,6 +15,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<Store/>} />
                 <Route path="products/:id" element={<ProductPage/>} />
+                <Route path="*" element={<ErrorPage err="404 Page not found"/>}/>
+                <Route path="/404" element = {<ErrorPage/>}/>
             </Routes>
         </div>
     );

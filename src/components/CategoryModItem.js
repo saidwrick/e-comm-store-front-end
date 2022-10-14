@@ -36,12 +36,12 @@ function CategoryModItem(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
+                props.handleError(resJson)
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
+            props.handleError(err)
         }
     }
 
@@ -61,12 +61,12 @@ function CategoryModItem(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
+                props.handleError(resJson)
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
+            props.handleError(err)
         }
     }
 

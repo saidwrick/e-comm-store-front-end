@@ -20,6 +20,10 @@ function Item(props) {
     const [disabled, setDisabled] = useState(true);
     const [expandDesc, setExpandDesc] = useState(false);
     const [expandImg, setExpandImg] = useState(false);
+    const [expandCategories, setExpandCategories] = useState(false);
+    const [expandError, setExpandError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [hover, setHover] = useState();
 
     function refreshValues(){
         setName(props.item.name);
@@ -30,6 +34,7 @@ function Item(props) {
         setCatId(props.item.category_id);
         setCat(props.item.category);
         setDisabled(true);
+        setExpandError(false);
     }
 
     function handleChange(e){
@@ -53,8 +58,6 @@ function Item(props) {
                 break;
         }
     }
-
-    const [expandCategories, setExpandCategories] = useState(false);
 
     function handleCategoriesClick(e){
         e.stopPropagation();
@@ -97,10 +100,10 @@ function Item(props) {
                 body: JSON.stringify({
                     "name": name, 
                     "price": price, 
-                    "image": imgUrl,
+                    "imgUrl": imgUrl,
                     "desc": desc, 
                     "quant": quant, 
-                    "cat": catId
+                    "catId": catId
                 }),
             });
             
@@ -111,16 +114,19 @@ function Item(props) {
                 console.log(resJson);
                 props.getInventory();
                 setDisabled(true);
+                setExpandError(false);
             } 
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
+                setExpandError(true);
+                setErrorMsg(resJson);
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
+            setExpandError(true);
+            setErrorMsg("failed to update item");
         }
     }
 
@@ -136,16 +142,19 @@ function Item(props) {
                 console.log("success");
                 console.log(resJson);
                 props.getInventory();
+                setExpandError(false);
             } 
             else {
                 console.log(res.status);
                 console.log(resJson);
-                //navigate 404
+                setExpandError(true);
+                setErrorMsg(resJson);
             }
         } 
         catch (err) {
             console.log(err);
-            // navigate("/404", { state: {err: err}});
+            setExpandError(true);
+            setErrorMsg("failed to delete item");
         }
     }
 
@@ -170,7 +179,6 @@ function Item(props) {
     }
 
 // display full value on hover
-    const [hover, setHover] = useState();
 
     function mouseEnter(e){
         if (e.target.value || e.target.innerText){
@@ -185,6 +193,14 @@ function Item(props) {
     useEffect(() => {
         refreshValues();
     },[props])
+
+    useEffect(() => {
+        if (expandError){
+            setTimeout(()=>{
+                setExpandError(false);
+            }, 3000)
+        };
+    },[expandError])
 
     if (!props.item){
         return null
@@ -263,6 +279,9 @@ function Item(props) {
             </div>
             <div className="cell">
                 <div className="buttons">
+                    {expandError?
+                        <div className="error">{errorMsg}</div>
+                    :null}
                     <button className="reset" disabled={disabled} onClick={refreshValues}><RefreshIcon/></button>
                     <button className="save" disabled={disabled} onClick={updateItem}><CheckIcon/></button>
                     <button className="del" onClick={deleteItem}><DeleteIcon/></button>
