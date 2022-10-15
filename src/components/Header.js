@@ -33,7 +33,7 @@ function Header() {
 
     return (
         <div className="header">
-            <a href="/">storeify</a>
+            <a href ="/">storeify</a>
             <button onClick={openCart} className="cart-icon">
             <CartIcon/>
                 <div className="cart-icon-total">

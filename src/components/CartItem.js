@@ -34,12 +34,12 @@ function CartItem(props) {
     
     return (
         <div className="cart-item">
-            <a className="cart-image " href={`/products/${props.item.item_id}`}>
+            <a className="cart-image " href = {`/products/${props.item.item_id}`}>
                 <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_150,w_150/"+props.item.image}></img>
             </a>
             <div className="cart-desc">
-                <a className="name" href={`/products/${props.item.item_id}`}>{props.item.name}</a>
-                <a className="price" href={`/products/${props.item.item_id}`}>${props.item.price}</a>
+                <a className="name" href ={`/products/${props.item.item_id}`}>{props.item.name}</a>
+                <a className="price" href ={`/products/${props.item.item_id}`}>${props.item.price}</a>
                 <div className="quant">Qty: 
                     <input min="0" onKeyDown={preventInput} maxLength={5} value={props.quant} onChange={updateQuant}></input>
                 </div>

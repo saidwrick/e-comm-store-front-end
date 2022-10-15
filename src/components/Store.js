@@ -9,7 +9,6 @@ function Store(props) {
     
     const [inventory, setInventory] = useState([]);
     const [invCount, setInvCount] = useState(null);
-    const [expandCart, setExpandCart] = useState(false);
     const [search, setSearch] = useState("");
     const [catFilter, setCatFilter] = useState(null);
     const [catIdFilter, setCatIdFilter] = useState(null);
@@ -107,7 +106,8 @@ function Store(props) {
 
     function handleScroll () {
         if (productsEndRef.current){
-            if (productsEndRef.current.offsetTop + productsEndRef.current.offsetHeight < window.scrollY + window.innerHeight) {
+            if (productsEndRef.current.offsetTop + productsEndRef.current.offsetHeight - 100 < window.scrollY + window.innerHeight) {
+                console.log('here')
                 addMoreProducts();
             }
         }
@@ -226,6 +226,12 @@ function Store(props) {
                         {inventory.length > 0 ?
                             inventory.map(e=> <StoreCard key={e.item_id} item={e}></StoreCard>)
                         : <div className="no-items">No Items Available</div>}
+    
+    {/* if uneven number of cards at bottom, forces it to be same width as above rows */}
+                        <div className="store-card filler"></div>
+                        <div className="store-card filler"></div>
+                        <div className="store-card filler"></div>
+                        <div className="store-card filler"></div>
                     </div>
                 </div>
             </div>

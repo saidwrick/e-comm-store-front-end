@@ -275,7 +275,7 @@ body {
     height: 500px;
     max-width: 100%;
     position: sticky;
-    top: 50px;   
+    top: 110px;   
     padding: 25px;
     word-wrap: break-word;
     overflow-y: auto;
@@ -412,11 +412,8 @@ body {
     display: flex;
     flex-wrap:wrap;
     width: 100%;
-    gap: 35px;
-    row-gap: 100px;
     padding: 0px 25px;
     box-sizing: border-box;
-    margin-bottom: 150px;
 }
 
 .store-card{
@@ -430,6 +427,15 @@ body {
     gap: 10px;
     font-size: 18px;
     flex: 1;
+    margin-bottom: 80px;
+    margin-right: 35px;
+}
+
+.store-card.filler {
+    max-height: 0px;
+    height: 0px;
+    min-height: 0px;
+    margin: 0;
 }
 
 .store-card a{
@@ -917,7 +923,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2;
+    z-index: 6;
     position: fixed;
     top: 0;
     left: 0;
@@ -1201,7 +1207,10 @@ body {
 @media only screen and (max-width: 700px) {
     .store .main .products{
         justify-content: center;
-        gap: 45px;
+    }
+
+    .store-card{
+        margin-bottom: 45px;
     }
 
 }

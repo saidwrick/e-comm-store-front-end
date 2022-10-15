@@ -170,6 +170,15 @@ function Inventory() {
 
     }, [search]);
 
+    // in order to preserve usability for mobile sizes
+    useEffect(()=>{
+        document.documentElement.style.minWidth="800px";
+
+        return () => {
+            document.documentElement.style.minWidth= null;
+        }
+    },[]);
+
     return (
         <div className="inventory-container">
             <h1> Inventory</h1>
