@@ -23,7 +23,8 @@ function Inventory() {
     const [sortType, setSortType] = useState(null);
     const [offset, setOffset] = useState(0);
     const [invCount, setInvCount] = useState(0);
-    
+
+    const api = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
 
     function handleFilterClick(e){
@@ -87,7 +88,7 @@ function Inventory() {
         let joinedParams = params.join("&");
 
         try {
-            let res = await fetch("/inventory?" + joinedParams, {
+            let res = await fetch(api + "/inventory?" + joinedParams, {
                 method: "GET",
             });
             
@@ -127,12 +128,6 @@ function Inventory() {
     }
 
     function categoryToggle(){
-        if (expandCategory){
-            document.body.style.overflow = null;
-        }
-        else{
-            document.body.style.overflow = "hidden";
-        }
         setExpandCategory(!expandCategory)
     }
 

@@ -12,6 +12,7 @@ function ProductPage() {
     const {id} = useParams();
     const dispatch = useDispatch();
 
+    const api = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
 
     function addToCart(){
@@ -23,7 +24,7 @@ function ProductPage() {
 
     async function getItem(){
         try {
-            let res = await fetch(`/inventory/${id}`, {
+            let res = await fetch(api + `/inventory/${id}`, {
                 method: "GET"
             });
             

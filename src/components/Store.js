@@ -18,6 +18,7 @@ function Store(props) {
     const [offset, setOffset] = useState(0);
     const [categories, setCategories] = useState();
 
+    const api = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
 
     async function getInventory(){
@@ -38,7 +39,7 @@ function Store(props) {
         let joinedParams = params.join("&");
 
         try {
-            let res = await fetch("/inventory?" + joinedParams, {
+            let res = await fetch(api + "/inventory?" + joinedParams, {
                 method: "GET",
             });
             
@@ -70,7 +71,7 @@ function Store(props) {
 
     async function getCategories(){
         try {
-            let res = await fetch("/categories", {
+            let res = await fetch(api + "/categories", {
                 method: "GET",
             });
             

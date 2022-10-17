@@ -24,6 +24,8 @@ function NewItem(props) {
     const [errorMsg, setErrorMsg] = useState("");
     const [expandError, setExpandError] = useState(false);
 
+    const api = process.env.REACT_APP_API_URL;
+
     function refreshValues(){
         setName("");
         setPrice("");
@@ -57,6 +59,8 @@ function NewItem(props) {
         setCat(name);
     }
 
+    //show full value on hover
+
     function mouseEnter(e){
         if (e.target.value || e.target.innerText){
             setHover(e.target.className)
@@ -67,9 +71,23 @@ function NewItem(props) {
         setHover(null)
     }
 
+    function closeHoverOnScroll () {
+        if (hover){
+            setHover(false);
+        }
+    }
+
+    useEffect(()=>{
+        window.addEventListener("scroll", closeHoverOnScroll, {passive: true});
+
+        return () => {
+            window.removeEventListener("scroll", closeHoverOnScroll);
+        }
+    });
+
     async function addItem(){
         try {
-            let res = await fetch("/inventory", {
+            let res = await fetch(api + "/inventory", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json',
@@ -109,22 +127,10 @@ function NewItem(props) {
     }
 
     function toggleImg(){
-        if (expandImg){
-            document.body.style.overflow = null;
-        }
-        else{
-            document.body.style.overflow = "hidden";
-        }
         setExpandImg(!expandImg)
     }
 
     function toggleDesc(){
-        if (expandDesc){
-            document.body.style.overflow = null;
-        }
-        else{
-            document.body.style.overflow = "hidden";
-        }
         setExpandDesc(!expandDesc)
     }
 
@@ -148,6 +154,8 @@ function NewItem(props) {
             }, 3000)
         };
     },[expandError])
+
+
 
     return (
         <div className = "new-item">

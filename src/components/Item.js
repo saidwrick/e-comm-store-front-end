@@ -25,6 +25,8 @@ function Item(props) {
     const [errorMsg, setErrorMsg] = useState("");
     const [hover, setHover] = useState();
 
+    const api = process.env.REACT_APP_API_URL;
+
     function refreshValues(){
         setName(props.item.name);
         setPrice(props.item.price);
@@ -91,7 +93,7 @@ function Item(props) {
 
     async function updateItem(){
         try {
-            let res = await fetch(`/inventory/${props.item.item_id}`, {
+            let res = await fetch(api + `/inventory/${props.item.item_id}`, {
                 method: "PUT",
                 headers: {
                     "type" : "details",
@@ -132,7 +134,7 @@ function Item(props) {
 
     async function deleteItem(){
         try {
-            let res = await fetch(`/inventory/${props.item.item_id}`, {
+            let res = await fetch(api + `/inventory/${props.item.item_id}`, {
                 method: "DELETE"
             });
             
@@ -159,22 +161,10 @@ function Item(props) {
     }
 
     function toggleImg(){
-        if (expandImg){
-            document.body.style.overflow = null;
-        }
-        else{
-            document.body.style.overflow = "hidden";
-        }
         setExpandImg(!expandImg)
     }
 
     function toggleDesc(){
-        if (expandDesc){
-            document.body.style.overflow = null;
-        }
-        else{
-            document.body.style.overflow = "hidden";
-        }
         setExpandDesc(!expandDesc)
     }
 
@@ -190,6 +180,20 @@ function Item(props) {
         setHover(null)
     }
 
+    function closeHoverOnScroll () {
+        if (hover){
+            setHover(false);
+        }
+    }
+
+    useEffect(()=>{
+        window.addEventListener("scroll", closeHoverOnScroll, {passive: true});
+
+        return () => {
+            window.removeEventListener("scroll", closeHoverOnScroll);
+        }
+    });
+
     useEffect(() => {
         refreshValues();
     },[props])
@@ -201,6 +205,8 @@ function Item(props) {
             }, 3000)
         };
     },[expandError])
+
+    
 
     if (!props.item){
         return null

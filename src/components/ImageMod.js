@@ -14,7 +14,7 @@ function ImageMod(props) {
         }
         const data = new FormData();
         data.append("file", selectedFile);
-        data.append("upload_preset", "qnxs59uo");
+        data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
         data.append("cloud_name", "dzflnyjtm")
 
         try {
@@ -42,6 +42,11 @@ function ImageMod(props) {
             setPrevImg("https://res.cloudinary.com/dzflnyjtm/image/upload/w_300,q_auto/"+props.imgUrl)
         }
     },[props])
+
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
+        return () => document.body.style.overflow = null;
+    },[])
 
     if (!props){
         return null;

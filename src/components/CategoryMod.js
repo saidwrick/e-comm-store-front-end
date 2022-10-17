@@ -9,9 +9,11 @@ function CategoryMod(props) {
     const [expandError, setExpandError] =useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
+    const api = process.env.REACT_APP_API_URL
+    
     async function getCategories(){
         try {
-            let res = await fetch("/categories", {
+            let res = await fetch(api + "/categories", {
                 method: "GET",
             });
             
@@ -40,7 +42,7 @@ function CategoryMod(props) {
         setExpandError(false);
         if (e.key === "Enter"){
             try {
-                let res = await fetch("/categories", {
+                let res = await fetch(api + "/categories", {
                     method: "POST",
                     headers:{
                         'Content-type': 'application/json',
@@ -79,6 +81,8 @@ function CategoryMod(props) {
 
     useEffect(() => {
         getCategories();
+        document.body.style.overflow = "hidden";
+        return () => document.body.style.overflow = null;
     },[])
 
     if (!props) {

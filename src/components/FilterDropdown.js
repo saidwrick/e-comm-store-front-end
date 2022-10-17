@@ -4,9 +4,11 @@ function FilterDropdown(props) {
     
     const [categories, setCategories] = useState([])
 
+    const api = process.env.REACT_APP_API_URL
+
     async function getCategories(){
         try {
-            let res = await fetch("/categories", {
+            let res = await fetch(api + "/categories", {
                 method: "GET",
             });
             

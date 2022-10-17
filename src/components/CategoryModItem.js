@@ -7,6 +7,8 @@ function CategoryModItem(props) {
     const [name, setName] = useState("");
     const [saveEnabled, setSaveEnabled] = useState(false);
 
+    const api = process.env.REACT_APP_API_URL
+
     function handleInput (e){
         setName(e.target.value);
         setSaveEnabled(true);
@@ -14,7 +16,7 @@ function CategoryModItem(props) {
 
     async function handleSave(e){
         try {
-            let res = await fetch(`/categories/${props.item.category_id}`, {
+            let res = await fetch(api + `/categories/${props.item.category_id}`, {
                 method: "PUT",
                 headers:{
                     'Content-type': 'application/json',
@@ -47,7 +49,7 @@ function CategoryModItem(props) {
 
     async function handleDel(e){
         try {
-            let res = await fetch(`/categories/${props.item.category_id}`, {
+            let res = await fetch(api + `/categories/${props.item.category_id}`, {
                 method: "DELETE",
             });
             

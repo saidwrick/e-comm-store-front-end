@@ -388,7 +388,7 @@ body {
 
 .store .search-bar .sort button{
     all: unset;
-    displaY: flex;
+    display: flex;
     font-size: 16px;
     height: 100%;
     white-space: nowrap;
@@ -557,9 +557,10 @@ body {
 .product-info .desc{
     white-space: pre-line;
     margin-top: 50px;
-    font-size: 18px;
+    font-size: 16px;
     word-wrap: break-word;
     max-width: 100%;
+    line-height: 1.5;
 }
 .inventory-container{
     display: flex;

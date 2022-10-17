@@ -16,6 +16,11 @@ function DescriptionMod(props) {
         }
     },[props])
 
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
+        return () => document.body.style.overflow = null;
+    },[])
+
     if (!props){
         return null;
     }

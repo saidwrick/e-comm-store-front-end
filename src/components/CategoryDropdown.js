@@ -5,9 +5,11 @@ function CategoryDropdown(props) {
     const [categories, setCategories] = useState([])
     const [addCat, setAddCat] = useState("");
 
+    const api = process.env.REACT_APP_API_URL
+
     async function getCategories(){
         try {
-            let res = await fetch("/categories", {
+            let res = await fetch(api + "/categories", {
                 method: "GET",
             });
             
@@ -46,7 +48,7 @@ function CategoryDropdown(props) {
             }
 
             try {
-                let res = await fetch("/categories", {
+                let res = await fetch(api + "/categories", {
                     method: "POST",
                     headers:{
                         'Content-type': 'application/json',
