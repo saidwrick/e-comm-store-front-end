@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
-import {useNavigate} from "react-router-dom";
 import StoreCard from './StoreCard.js';
 import SortDropdown from './SortDropdown.js';
+import ErrorPage from "./ErrorPage";
 import { ReactComponent as SearchIcon} from '../icons/search.svg'
 import { ReactComponent as SortIcon} from '../icons/sort.svg'
 
@@ -17,9 +17,15 @@ function Store(props) {
     const [sortType, setSortType] = useState(null);
     const [offset, setOffset] = useState(0);
     const [categories, setCategories] = useState();
+    const [errorMsg, setErrorMsg] = useState("");
+    const [errorPage, setErrorPage] = useState(false);
 
     const api = process.env.REACT_APP_API_URL;
-    const navigate = useNavigate();
+
+    function openErrorPage(msg = ""){
+        setErrorMsg(msg);
+        setErrorPage(true);
+    }
 
     async function getInventory(){
         let params = []
@@ -65,7 +71,7 @@ function Store(props) {
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: "Internal server error"}});
+            openErrorPage("Internal server error");
         }
     }
 
@@ -185,6 +191,10 @@ function Store(props) {
 
     if (!props) {
         return null;
+    }
+
+    if (errorPage) {
+        return <ErrorPage err={errorMsg}></ErrorPage>
     }
 
     return (

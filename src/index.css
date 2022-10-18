@@ -11,11 +11,34 @@ body {
     height: 100%;
 }
 
+.loading {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.loading h2{
+    font-weight: normal;
+    font-size: 20px;
+    color: rgb(139, 139, 139);
+}
+
+.loading img{
+    height: 100px;
+    width: 100px;
+}
+
 .nav-bar{
     position: sticky;
     top: 0px;
     z-index: 5;
-    background-color: rgb(73, 145, 59);
+    background-color: rgb(0, 0, 0);
     height: 60px;
     display: flex;
     align-items: center;
@@ -414,6 +437,7 @@ body {
     width: 100%;
     padding: 0px 25px;
     box-sizing: border-box;
+    column-gap: 35px;
 }
 
 .store-card{
@@ -428,7 +452,6 @@ body {
     font-size: 18px;
     flex: 1;
     margin-bottom: 80px;
-    margin-right: 35px;
 }
 
 .store-card.filler {
@@ -1102,7 +1125,14 @@ body {
 }
 
 .error-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    height: 100vh;
+    width: 100vw;
     padding: 25px;
+    background-color: white;
 }
 
 @media only screen and (max-width: 780px) {

@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {useNavigate} from "react-router-dom";
 import { addItem } from '../redux/cartSlice';
 import { useParams } from 'react-router-dom'
 import { expandCartTrue } from '../redux/expandCartSlice'
-
+import ErrorPage from "./ErrorPage";
 
 function ProductPage() {
 
     const [item, setItem] = useState(null);
     const {id} = useParams();
     const dispatch = useDispatch();
+    const [errorMsg, setErrorMsg] = useState("");
+    const [errorPage, setErrorPage] = useState(false);
 
     const api = process.env.REACT_APP_API_URL;
-    const navigate = useNavigate();
+
+    function openErrorPage(msg = ""){
+        setErrorMsg(msg);
+        setErrorPage(true);
+    }
 
     function addToCart(){
         dispatch(addItem({
@@ -47,7 +52,7 @@ function ProductPage() {
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: err}});
+            openErrorPage(err);
         }
     }
 
@@ -56,14 +61,18 @@ function ProductPage() {
 
     },[])
 
-    if (!item){
+    if (!item && !errorPage){
         return null;
+    }
+
+    if (errorPage) {
+        return <ErrorPage err={errorMsg}></ErrorPage>
     }
 
     return (
         <div className="product-page">
             <div className="product-image">
-                <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_600,w_600/"+item.image}></img>
+                <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/"+item.image}></img>
 
             </div>
             <div className="product-info">

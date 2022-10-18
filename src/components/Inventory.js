@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import Item from './Item.js';
 import NewItem from './NewItem.js';
 import CategoryMod from './CategoryMod.js';
 import FilterDropdown from './FilterDropdown.js';
 import SortDropdown from './SortDropdown.js';
+import ErrorPage from "./ErrorPage";
 import { ReactComponent as SearchIcon} from '../icons/search.svg'
 import { ReactComponent as FilterIcon} from '../icons/filter.svg'
 import { ReactComponent as SortIcon} from '../icons/sort.svg'
@@ -23,9 +23,15 @@ function Inventory() {
     const [sortType, setSortType] = useState(null);
     const [offset, setOffset] = useState(0);
     const [invCount, setInvCount] = useState(0);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [errorPage, setErrorPage] = useState(false);
 
     const api = process.env.REACT_APP_API_URL;
-    const navigate = useNavigate();
+
+    function openErrorPage(msg = ""){
+        setErrorMsg(msg);
+        setErrorPage(true);
+    }
 
     function handleFilterClick(e){
         e.stopPropagation();
@@ -108,7 +114,7 @@ function Inventory() {
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: "Internal server error"}});
+            openErrorPage("Internal server error");
         }
     }
 
@@ -173,6 +179,10 @@ function Inventory() {
             document.documentElement.style.minWidth= null;
         }
     },[]);
+
+    if (errorPage) {
+        return <ErrorPage err={errorMsg}></ErrorPage>
+    }
 
     return (
         <div className="inventory-container">
