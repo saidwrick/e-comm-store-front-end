@@ -10,7 +10,7 @@ const cartSlice = createSlice({
                 item : action.payload.item,
                 quant : 1
             }
-			state.push(item);
+			state.unshift(item);
 		},
         changeQuant: (state, action) => {
             const index = state.findIndex((item) => item.id === action.payload.id);

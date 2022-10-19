@@ -27,6 +27,8 @@ body {
     font-weight: normal;
     font-size: 20px;
     color: rgb(139, 139, 139);
+    padding: 0px 25px;
+    text-align: center;
 }
 
 .loading img{
