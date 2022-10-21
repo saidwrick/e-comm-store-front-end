@@ -945,6 +945,23 @@ body {
     text-overflow: clip;    
 }
 
+.category-dropdown .input-save{
+    color: grey;
+    margin-top: -5px;
+    margin-bottom: 0 px;
+    padding-left: 10px;
+    animation: fade 1s;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .modal {
     display: flex;
     align-items: center;
@@ -985,7 +1002,7 @@ body {
     to {
         opacity: 1;
     }
-  }
+}
 
 .modal h1{
     padding: 0px;
@@ -1107,6 +1124,15 @@ body {
     box-sizing: border-box;
     min-height: 35px;
     border-radius: 10px;
+}
+
+.cat-mod .input-save{
+    color: grey;
+    margin-top: -5px;
+    margin-bottom: 0 px;
+    padding-left: 10px;
+    animation: fade 1s;
+    align-self: flex-start;
 }
 
 .img-mod .img-preview{

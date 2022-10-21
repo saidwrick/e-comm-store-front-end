@@ -96,6 +96,9 @@ function CategoryDropdown(props) {
                 onKeyDown={handleAddCatSubmit}
                 value={addCat}>
             </input>
+            {addCat.length > 0 ?
+                <div className="input-save">> press enter</div>
+            : null}
             {categories.map(e => <div className="option" onClick={handleCatClick} key={e.category_id} data-key={e.category_id}>{e.name}</div>)}
         </div>
     );

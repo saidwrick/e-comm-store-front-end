@@ -114,6 +114,9 @@ function CategoryMod(props) {
                     onKeyDown={handleAddCatSubmit}
                     value={addCat}>
                 </input>
+                {addCat.length > 0 ?
+                <div className="input-save">> press enter</div>
+            : null}
             </div>
         </div>
     );
