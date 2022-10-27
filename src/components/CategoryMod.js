@@ -90,8 +90,8 @@ function CategoryMod(props) {
     }
 
     return (
-        <div className="modal" onClick={props.categoryToggle}>
-            <div className="cat-mod" onClick={e=>e.stopPropagation()}>
+        <div className="modal" onMouseDown={props.categoryToggle}>
+            <div className="cat-mod" onMouseDown={e=>e.stopPropagation()}>
                 <div className="modal-header">
                     <button className="close" onClick={props.categoryToggle}><CloseIcon/></button>
                     <h1>Edit Categories</h1>

@@ -26,8 +26,8 @@ function DescriptionMod(props) {
     }
 
     return (
-        <div className="modal" onClick={props.toggleDesc}>
-            <div onClick={e=>e.stopPropagation()} className="desc-mod">
+        <div className="modal" onMouseDown={props.toggleDesc}>
+            <div onMouseDown={e=>e.stopPropagation()} className="desc-mod">
                 <div className="modal-header">
                     <button className="close" onClick={props.toggleDesc}><CloseIcon/></button>
                     <h1>Edit Description</h1>

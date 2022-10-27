@@ -53,8 +53,8 @@ function ImageMod(props) {
     }
 
     return (
-        <div className="modal" onClick={props.toggleImg}>
-            <div onClick={e=>e.stopPropagation()} className="img-mod">
+        <div className="modal" onMouseDown={props.toggleImg}>
+            <div onMouseDown={e=>e.stopPropagation()} className="img-mod">
                 <div className="modal-header">
                     <button className="close" onClick={props.toggleImg}><CloseIcon/></button>
                     <h1>Upload Image</h1>
