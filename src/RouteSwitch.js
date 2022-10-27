@@ -6,7 +6,10 @@ import Navbar from "./components/Navbar.js";
 
 const RouteSwitch = () => {
 
-    const [loading, setLoading] = useState(true);
+    // loading screen only if server hasn't been used for 14 mins
+    const [loading, setLoading] = useState(
+        Date.now() - localStorage.lastLog >= 840000 || !localStorage.lastLog ? true : false
+    );
 
     const api = process.env.REACT_APP_API_URL
 
@@ -33,8 +36,10 @@ const RouteSwitch = () => {
     }
 
     useEffect(() => {
-        queryApi();
-
+        if (loading){
+            queryApi();
+        }
+        localStorage.lastLog = Date.now();
     },[]);
 
     if (loading){
