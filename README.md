@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Storeify
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Full Stack E-Commerce platform. Allows users to manage store inventory and display items for browsing in a customer-facing online store. 
 
-## Available Scripts
+Note: this is a demo version, so certain features (user accounts, checkout flow, etc.) haven't been implemented. 
 
-In the project directory, you can run:
+[Live Demo](https://storeify.netlify.app/) (server might take a minute to start)
 
-### `npm start`
+[Front-End Repo](https://github.com/saidwrick/storeify)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[Back-End Repo](https://github.com/saidwrick/storeify-back-end)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies
+- JavaScript
+- ReactJS
+- Redux
+- NodeJS
+- Express
+- Vanilla CSS
+- MySQL
+- AWS
+- Cloudniary (for pictures)
+- Front-End Hosted on Netlify
+- Back-End Hosted on Render
 
-### `npm test`
+## Features
+### Front-End
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Online Store
+  - Dynamically generated products display, updates live when inventory is changed
+  - Filter & Sort products by available Categories
+  - Auto-search of products on input
+  - Add items to cart either from main page, or specific product page
+  - Cart items are persisted (will be the same even if users leave site) and available globally
+  - Auto generated Cart Total, when adding products or changing quantity
+  - Call to Action prompt when products are low in stock
+  - Auto-loads more products when reaching end of the page
+  
+- Inventory Management
+  - Add, Edit, or Delete products 
+  - Product details are displayed and editable in-line 
+  - Hovering over cells displays the full content text
+  - Update buttons are disabled when required fields are missing
+  - Upload images
+  - New categories can be added in either a pop-up modal or menu
+  - Can only delete categories if no products are using it
+  - Filter, Sort, and Search products
+  
+- General
+  - Responsive web and mobile design
+  - Graceful error handling (error messages within components when applicable, or entire 404/500 error pages)
+  - Nav-bar to switch between live store and inventory (would be separate for a real implementation, but handy for a demo site)
+  - Pagination of products
+  
+### Back-End
 
-### `npm run build`
+- REST API
+  - GET/ PUT/ POST/ DELETE actions for resources (products, categories)
+  - Allows user to filter GET requests on multiple options
+  - Pagination using offset and limit
+  - Proper Error Code Responses and Messages
+  - Validates form content before writing to database
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Database
+  - Read & Write to MySQL database
+  - Hosted on AWS
